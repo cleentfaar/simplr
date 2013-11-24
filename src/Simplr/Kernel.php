@@ -70,6 +70,7 @@ class Kernel
         $this->env = $env;
         $this->app = new Application();
         $this->prepareConfiguration();
+        $this->app['debug'] = $this->app['config']['simplr']['debug'] ? true : false;
         if ($autoRegister == true) {
             $this->registerServices();
         }
@@ -126,7 +127,7 @@ class Kernel
          */
 
         $this->app->error(function (\Exception $e, $code) {
-            if ($this->app['debug']) {
+            if ($this->app['config']['simplr']['debug']) {
                 throw $e;
             }
 
@@ -180,21 +181,8 @@ class Kernel
         $this->registered = true;
     }
 
-    private function registerDefaultServices()
+    private function registerDatabase()
     {
-        $this->app->register(new UrlGeneratorServiceProvider());
-        $this->app->register(new ValidatorServiceProvider());
-        $this->app->register(new ServiceControllerServiceProvider());
-
-        $this->app->register(new TwigServiceProvider(), array(
-            //'debug' => $this->app['config']['simplr']['debug'],
-            'twig.options' => array(
-                'debug' => $this->app['config']['simplr']['debug'] ? true : false,
-                //'cache' => $this->app['config']['simplr']['debug'] ? false : SIMPLR_PATHTO_CACHE . '/twig',
-                'cache' => SIMPLR_PATHTO_CACHE . '/twig',
-            ),
-        ));
-
         $dbOptions = array(
             'driver' => $this->app['config']['simplr']['database']['driver'],
         );
@@ -232,6 +220,35 @@ class Kernel
         ));
         $tablePrefix = new TablePrefix($this->app['config']['simplr']['database']['table_prefix']);
         $this->app['db.event_manager']->addEventListener(\Doctrine\ORM\Events::loadClassMetadata, $tablePrefix);
+    }
+
+    private function registerDebugServices()
+    {
+        $this->app->register(new MonologServiceProvider(), array(
+            'monolog.logfile' => SIMPLR_PATHTO_LOGS . '/simplr.log',
+        ));
+
+        $this->app->register($p = new WebProfilerServiceProvider(), array(
+            'profiler.cache_dir' => SIMPLR_PATHTO_CACHE . '/profiler',
+        ));
+        $this->app->mount('/_profiler', $p);
+    }
+
+    private function registerDefaultServices()
+    {
+        $this->app->register(new UrlGeneratorServiceProvider());
+        $this->app->register(new ValidatorServiceProvider());
+        $this->app->register(new ServiceControllerServiceProvider());
+
+        $this->app->register(new TwigServiceProvider(), array(
+            //'debug' => $this->app['config']['simplr']['debug'],
+            'twig.options' => array(
+                'debug' => $this->app['config']['simplr']['debug'] ? true : false,
+                //'cache' => $this->app['config']['simplr']['debug'] ? false : SIMPLR_PATHTO_CACHE . '/twig',
+                'cache' => SIMPLR_PATHTO_CACHE . '/twig',
+            ),
+        ));
+        $this->registerDatabase();
         $this->app['simplr_optionmanager'] = new OptionManager($this->app['orm.em']);
         $this->app['simplr_mediamanager'] = new MediaManager($this->app['orm.em']);
         $this->app['simplr_pagemanager'] = new PageManager($this->app['orm.em']);
@@ -254,17 +271,7 @@ class Kernel
 
 
         if ($this->app['config']['simplr']['debug'] == true) {
-            $this->app['debug'] = true;
-
-
-            $this->app->register(new MonologServiceProvider(), array(
-                'monolog.logfile' => SIMPLR_PATHTO_LOGS . '/simplr.log',
-            ));
-
-            $this->app->register($p = new WebProfilerServiceProvider(), array(
-                'profiler.cache_dir' => SIMPLR_PATHTO_CACHE . '/profiler',
-            ));
-            $this->app->mount('/_profiler', $p);
+            $this->registerDebugServices();
         }
 
     }
