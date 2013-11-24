@@ -57,7 +57,7 @@ class Kernel
     /**
      * @param string $env
      */
-    public function __construct($env = 'prod')
+    public function __construct($env = 'prod', $autoRegister = false)
     {
         switch ($env) {
             case 'test':
@@ -70,6 +70,9 @@ class Kernel
         $this->env = $env;
         $this->app = new Application();
         $this->prepareConfiguration();
+        if ($autoRegister == true) {
+            $this->registerServices();
+        }
     }
 
     public function run()

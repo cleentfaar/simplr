@@ -7,17 +7,13 @@ use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
 use Knp\Provider\ConsoleServiceProvider;
-use Simplr\Command\CreateDatabaseDoctrineCommand;
-use Simplr\Command\ImportMappingDoctrineCommand;
 use Simplr\Command\PluginGenerateCommand;
 use Simplr\Command\ThemeGenerateCommand;
 use Symfony\Component\Console\Helper\HelperSet;
 
 set_time_limit(0);
 
-
-require_once __DIR__.'/../app/bootstrap.php';
-$kernel = new \Simplr\Kernel();
+$kernel = new \Simplr\Kernel('dev', true);
 $app = $kernel->getApplication();
 $app->register(new ConsoleServiceProvider(), array(
     'console.name'              => 'Simplr Console Application',
@@ -43,8 +39,6 @@ $console->setHelperSet($helperSet);
 ConsoleRunner::addCommands($console);
 
 $simplrCommands = array(
-    new ImportMappingDoctrineCommand(),
-    new CreateDatabaseDoctrineCommand(),
     new PluginGenerateCommand(),
     new ThemeGenerateCommand(),
 );
