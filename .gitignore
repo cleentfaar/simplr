@@ -3,6 +3,8 @@
 /.idea
 /vendor
 /app/config/parameters.yml
+!/app/db/.gitkeep
+/app/db/simplr.db
 !/app/tmp/cache/.gitkeep
 /app/tmp/cache/*
 !/app/tmp/logs/.gitkeep

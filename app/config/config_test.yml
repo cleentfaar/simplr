@@ -5,4 +5,4 @@ simplr:
     debug: true
     database:
         driver: pdo_sqlite
-        path: %path_to_config%/simplr.db
+        path: %path_to_app%/db/simplr.db

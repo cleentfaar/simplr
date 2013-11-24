@@ -162,6 +162,7 @@ class Kernel
         $parameters = $this->app['wise']->load('parameters.yml');
         $parameters = array_merge($parameters, array(
             'path_to_root' => SIMPLR_PATHTO_ROOT,
+            'path_to_app' => SIMPLR_PATHTO_APP,
             'path_to_cache' => SIMPLR_PATHTO_CACHE,
             'path_to_config' => SIMPLR_PATHTO_CONFIG,
             'path_to_library' => SIMPLR_PATHTO_LIBRARY,
