@@ -1,0 +1,15 @@
+/composer.lock
+/composer.phar
+/.idea
+/vendor
+/app/config/parameters.yml
+!/app/tmp/cache/.gitkeep
+/app/tmp/cache/*
+!/app/tmp/logs/.gitkeep
+/app/tmp/logs/*
+!/web/assets/media/.gitkeep
+/web/assets/media/*
+!/web/assets/plugins/.gitkeep
+/web/assets/plugins/*
+!/web/assets/themes/.gitkeep
+/web/assets/themes/*

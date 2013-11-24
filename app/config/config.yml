@@ -1,0 +1,11 @@
+simplr:
+    debug: ~
+    backend_prefix: %backend_prefix%
+    database:
+        driver: %database_driver%
+        host: %database_host%
+        port: %database_port%
+        username: %database_username%
+        password: %database_password%
+        name: %database_name%
+        table_prefix: %table_prefix%

@@ -1,0 +1,8 @@
+backend_prefix: /admin
+table_prefix: simplr_
+database_driver: pdo_mysql
+database_host: 127.0.0.1
+database_port: null
+database_username: root
+database_password: null
+database_name: simplr

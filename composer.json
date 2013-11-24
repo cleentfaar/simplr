@@ -1,0 +1,24 @@
+{
+    "name": "cleentfaar/simplr",
+    "description": "Simplr aims to be a superfast and highly standardised CMS with theme and plugin functionality",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "silex/silex": "~1.1",
+        "silex/web-profiler": "~1.0",
+        "herrera-io/silex-wise": "~1.0",
+        "monolog/monolog": ">=1.0.0",
+        "symfony/yaml": "~2.3",
+        "symfony/twig-bridge": "~2.3",
+        "doctrine/doctrine-bundle": "~1.1",
+        "neutron/silex-filesystem-provider": "dev-master",
+        "oaugustus/finder-silex-provider": "dev-master",
+        "dflydev/doctrine-orm-service-provider": "dev-master",
+        "knplabs/console-service-provider": "dev-master",
+        "mheap/Silex-Assetic": "*",
+        "gregwar/image": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "": "src" }
+    }
+}
