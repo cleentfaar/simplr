@@ -1,4 +1,4 @@
-Simplr [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/cleentfaar/simplr/badges/quality-score.png?s=588cdfd08de753962dfdc45924bafe5610fee429)](https://scrutinizer-ci.com/g/cleentfaar/simplr/) [![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/simplr/badges/coverage.png?s=9468704096b0d33390c42b56de6b98ba93efc5bb)](https://scrutinizer-ci.com/g/cleentfaar/simplr/) [![Build Status](https://travis-ci.org/cleentfaar/simplr.png?branch=master)](http://travis-ci.org/cleentfaar/simplr)
+Simplr [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/cleentfaar/simplr/badges/quality-score.png?s=7dc6d290f8a79710a216d6b2ff5081af406566fe)](https://scrutinizer-ci.com/g/cleentfaar/simplr/) [![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/simplr/badges/coverage.png?s=64404e69aa9a7ed7fdf3c704536163f3e29a0aec)](https://scrutinizer-ci.com/g/cleentfaar/simplr/) [![Build Status](https://travis-ci.org/cleentfaar/simplr.png?branch=master)](http://travis-ci.org/cleentfaar/simplr)
 ===================================
 
 WARNING: THIS PROJECT IS STILL IN A VERY EARLY DEVELOPMENT PHASE!
