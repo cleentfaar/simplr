@@ -6,8 +6,14 @@ php:
   - 5.5
 
 before_script:
+  # Copy parameters template for tests (db settings etc)
   - 'cp app/config/parameters.yml.dist app/config/parameters.yml'
-  - 'composer self-update'
-  - 'composer install -n --prefer-source'
 
-script: phpunit -c app
+  # Travis appearantly doesn't like to update their composer version regularly
+  - 'composer self-update'
+
+  # Install packages
+  - 'composer install -n'
+
+script:
+  - 'phpunit -c app'
