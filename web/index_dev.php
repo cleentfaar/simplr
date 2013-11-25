@@ -20,6 +20,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 }
 
 require_once __DIR__.'/../app/bootstrap.php';
+$app = require_once __DIR__.'/../app/services.php';
+require_once __DIR__.'/../app/routes.php';
 
-$kernel = new \Simplr\Kernel('dev');
-$kernel->run();
+$app->run();

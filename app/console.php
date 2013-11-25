@@ -1,7 +1,13 @@
 <?php
-namespace app; // development purposes only
 
-require_once __DIR__ . '/bootstrap.php';
+/*
+ * This file is part of the Simplr package.
+ *
+ * (c) Cas Leentfaar <info@casleentfaar.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
@@ -13,8 +19,9 @@ use Symfony\Component\Console\Helper\HelperSet;
 
 set_time_limit(0);
 
-$kernel = new \Simplr\Kernel('dev', true);
-$app = $kernel->getApplication();
+require_once __DIR__.'/../app/bootstrap.php';
+$app = require_once __DIR__.'/../app/services.php';
+
 $app->register(new ConsoleServiceProvider(), array(
     'console.name'              => 'Simplr Console Application',
     'console.version'           => '1.0.0',

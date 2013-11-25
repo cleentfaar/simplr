@@ -9,10 +9,15 @@
  * file that was distributed with this source code.
  */
 
-ini_set('display_errors', 0);
+namespace Simplr;
 
-require_once __DIR__.'/../app/bootstrap.php';
-$app = require_once __DIR__.'/../app/services.php';
-require_once __DIR__.'/../app/routes.php';
+use Silex\Application as BaseApplication;
 
-$app->run();
+/**
+ * Class Application
+ * @package Simplr
+ */
+class Application extends BaseApplication
+{
+
+}
