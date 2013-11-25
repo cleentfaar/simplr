@@ -7,13 +7,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Simplr\Command;
 
 use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Simplr\Exception\FilesystemException;
 
 /**
  * PluginGenerateCommand generates a new plugin skeleton from a given set of parameters
@@ -58,10 +58,10 @@ EOF
         $pluginTitle = str_replace('-', ' ', $pluginTitle);
         $pluginTitle = ucwords($pluginTitle);
         if (!$app['filesystem']->exists($pluginTemplateDir)) {
-            throw new FilesystemException(sprintf("The plugin skeleton path could not be found in %s", $pluginTemplateDir));
+            throw new \Exception(sprintf("The plugin skeleton path could not be found in %s", $pluginTemplateDir));
         }
         if ($app['simplr_pluginmanager']->pluginExists($this->pluginName)) {
-            throw new FilesystemException(sprintf("A plugin with the same name (%s) already exists, uninstall it first", $this->pluginName));
+            throw new \Exception(sprintf("A plugin with the same name (%s) already exists, uninstall it first", $this->pluginName));
         }
         $output->writeln(sprintf("Creating plugin with name '%s' from directory '%s'", $this->pluginName, $pluginTemplateDir));
         $app['filesystem']->mirror($pluginTemplateDir, $pluginTargetDir);

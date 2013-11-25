@@ -7,13 +7,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Simplr\Command;
 
 use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Simplr\Exception\FilesystemException;
 
 /**
  * ThemeGenerateCommand generates a new theme skeleton from a given set of parameters
@@ -58,10 +58,10 @@ EOF
         $themeTitle = str_replace('-', ' ', $themeTitle);
         $themeTitle = ucwords($themeTitle);
         if (!$app['filesystem']->exists($themeTemplateDir)) {
-            throw new FilesystemException(sprintf("The theme skeleton path could not be found in %s", $themeTemplateDir));
+            throw new \Exception(sprintf("The theme skeleton path could not be found in %s", $themeTemplateDir));
         }
         if ($app['simplr_thememanager']->themeExists($this->themeName)) {
-            throw new FilesystemException(sprintf("A theme with the same name (%s) already exists, uninstall it first", $this->themeName));
+            throw new \Exception(sprintf("A theme with the same name (%s) already exists, uninstall it first", $this->themeName));
         }
         $output->writeln(sprintf("Creating theme with name '%s' from directory '%s'", $this->themeName, $themeTemplateDir));
         $app['filesystem']->mirror($themeTemplateDir, $themeTargetDir);

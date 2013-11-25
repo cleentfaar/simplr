@@ -117,14 +117,6 @@ class Kernel
 
             return $routes;
         });
-        /**
-        $app->get('/', function () use ($app) {
-        $activeTheme = $app['simplr_thememanager']->getActiveTheme();
-        $activePlugins = $app['simplr_pluginmanager']->getActivePlugins();
-        return $app['twig']->render('index.html.twig', array('activeTheme' => $activeTheme, 'activePlugins' => $activePlugins));
-        })
-        ->bind('homepage');
-         */
 
         $this->app->error(function (\Exception $e, $code) {
             if ($this->app['config']['simplr']['debug']) {
@@ -244,7 +236,6 @@ class Kernel
             //'debug' => $this->app['config']['simplr']['debug'],
             'twig.options' => array(
                 'debug' => $this->app['config']['simplr']['debug'] ? true : false,
-                //'cache' => $this->app['config']['simplr']['debug'] ? false : SIMPLR_PATHTO_CACHE . '/twig',
                 'cache' => SIMPLR_PATHTO_CACHE . '/twig',
             ),
         ));

@@ -69,7 +69,7 @@ class OptionManager
     {
         $result = $this->em->getRepository('Simplr\Entity\Option')->findAll();
         $options = array();
-        foreach ($result as $i => $option) {
+        foreach ($result as $option) {
             $options[$option->getName()] = $option;
         }
         return $options;
