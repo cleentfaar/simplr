@@ -1,6 +1,6 @@
 {
     "name": "cleentfaar/simplr",
-    "description": "Simplr aims to be a superfast and highly standardised CMS with theme and plugin functionality",
+    "description": "Simplr aims to be a superfast and highly standardised CMS with theme and plugin functionality.",
     "license": "MIT",
     "type": "project",
     "require": {
