@@ -1,0 +1,3 @@
+simplr_admin_routes:
+    resource: routing_admin.yml
+    prefix: /admin

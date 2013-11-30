@@ -13,3 +13,5 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+    path_to_plugins: MyPathToPlugins
+    path_to_themes: MyPathToThemas

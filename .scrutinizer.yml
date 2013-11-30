@@ -4,7 +4,7 @@ filter:
 
 before_commands:
   # Copy parameters template for tests (db settings etc)
-  - 'cp app/config/parameters.yml.dist app/config/parameters.yml'
+  #- 'cp app/config/parameters.yml.dist app/config/parameters.yml'
 
   # Install packages, Scrutinizer already applies '--no-interaction' by itself
   - 'composer install'

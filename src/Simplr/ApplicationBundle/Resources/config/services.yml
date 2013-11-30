@@ -1,0 +1,7 @@
+parameters:
+    simplr.pluginmanager.class: Simplr\Application\Pluggable\PluginManager
+
+services:
+    simplr.pluginmanager:
+        class: %simplr.pluginmanager.class%
+        arguments: [%path_to_plugins%]
