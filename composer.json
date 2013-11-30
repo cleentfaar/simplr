@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "cleentfaar/simplr",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "The Simplr CMS",
     "autoload": {
         "psr-0": { "": "src/" }
     },
@@ -19,7 +19,7 @@
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "grifis/doctrine-table-prefix-bundle": "dev-master"
+        "cleentfaar/doctrine-table-prefix-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -46,9 +46,6 @@
         "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.3-dev"
         }
     }
 }
