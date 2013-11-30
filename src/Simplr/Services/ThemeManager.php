@@ -12,6 +12,7 @@
 namespace Simplr\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -29,6 +30,11 @@ class ThemeManager
      * @var array
      */
     private $themeOptions = array();
+
+    /**
+     * @var array
+     */
+    private $themeConfigs = array();
 
     /**
      * @var array
@@ -54,10 +60,10 @@ class ThemeManager
         $activeTheme = $this->fetchActiveTheme();
         if ($activeTheme !== null) {
             $this->activeThemeFetched = $activeTheme;
-            $availableThemes = $this->getAvailableThemes();
-            if (isset($availableThemes[$activeTheme])) {
+            $themeConfig = $this->getThemeConfig($activeTheme);
+            if (!empty($themeConfig)) {
                 $this->activeTheme = $activeTheme;
-                $this->activeThemeConfig = $availableThemes[$activeTheme];
+                $this->activeThemeConfig = $themeConfig;
             }
         }
     }
@@ -67,7 +73,6 @@ class ThemeManager
      */
     public function registerListeners(EventDispatcherInterface $dispatcher)
     {
-        $activeTheme = $this->getActiveTheme();
         $activeThemeConfig = $this->getActiveThemeConfig();
         if (!empty($activeThemeConfig)) {
             foreach ($activeThemeConfig['hooks'] as $eventName => $callable) {
@@ -95,6 +100,18 @@ class ThemeManager
 
     /**
      * @param $theme
+     * @return array|null
+     */
+    public function getThemeConfig($theme)
+    {
+        if (!array_key_exists($theme, $this->themeConfigs)) {
+            $this->themeConfigs[$theme] = $this->findThemeConfig($theme);
+        }
+        return $this->themeConfigs[$theme];
+    }
+
+    /**
+     * @param $theme
      * @return mixed
      */
     public function getThemeOptions($theme)
@@ -105,27 +122,31 @@ class ThemeManager
         return $this->themeOptions[$theme];
     }
 
+    public function getPathToTheme($theme)
+    {
+        return SIMPLR_PATHTO_THEMES . '/' . $theme;
+    }
+
     /**
      * @param null $restrictedName
      * @return array
      */
-    private function findAvailableThemes($restrictedName = null)
+    private function findThemeConfig($theme)
     {
+        $path = $this->getPathToTheme($theme);
         $finder = new Finder();
-        $files = $finder->files()->in(SIMPLR_PATHTO_THEMES)->name('theme.php')->depth(1);
-        $themes = array();
+        $files = $finder->files()->in($path)->name('theme.php')->depth(0);
+        $config = array();
         foreach ($files as $file) {
             $path = $file->getRealpath();
-            $name = pathinfo(pathinfo($path, PATHINFO_DIRNAME), PATHINFO_BASENAME);
-            if (!$restrictedName || $name == $restrictedName) {
-                $config = include $path;
-                $valid = $this->validateConfig($config);
-                if ($valid === true) {
-                    $themes[$name] = $config;
-                }
+            $configIncluded = include $path;
+            $valid = $this->validateConfig($config);
+            if ($valid === true) {
+                $config = $configIncluded;
             }
+            break;
         }
-        return $themes;
+        return $config;
     }
 
     /**
@@ -156,8 +177,9 @@ class ThemeManager
      */
     public function themeExists($name)
     {
-        $themesDir = SIMPLR_PATHTO_THEMES . '/' . $name;
-        return $this->app['filesystem']->exists($themesDir);
+        $themesDir = $this->getPathToTheme($name);
+        $filesystem = new Filesystem();
+        return $filesystem->exists($themesDir);
     }
 
     /**

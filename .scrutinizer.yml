@@ -10,11 +10,12 @@ before_commands:
   - 'composer install'
 
 tools:
-  #php_code_coverage:
-  #  test_command: 'phpunit -c app'
+  php_code_coverage:
+    test_command: 'phpunit -c app'
   php_code_sniffer: true
   php_cs_fixer: true
   php_mess_detector:
+    enabled: true
     config:
       code_size_rules:
         too_many_fields: false

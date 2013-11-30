@@ -12,6 +12,7 @@
 namespace Simplr\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -52,7 +53,7 @@ class PluginManager
      */
     public function registerListeners(EventDispatcherInterface $dispatcher)
     {
-        foreach ($this->getActivePlugins() as $plugin => $config) {
+        foreach ($this->getActivePlugins() as $config) {
             foreach ($config['hooks'] as $eventName => $callable) {
                 $dispatcher->addListener($eventName, $callable);
             }
@@ -66,7 +67,8 @@ class PluginManager
     public function pluginExists($name)
     {
         $pluginDir = SIMPLR_PATHTO_PLUGINS . DIRECTORY_SEPARATOR . $name;
-        return $this->app['filesystem']->exists($pluginDir);
+        $filesystem = new Filesystem();
+        return $filesystem->exists($pluginDir);
     }
 
     /**
