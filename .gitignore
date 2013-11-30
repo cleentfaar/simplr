@@ -1,18 +1,17 @@
+# Simplr ignores
 /composer.lock
-/composer.phar
 /scrutinizer.phar
 /.idea
-/vendor
+
+# Symfony ignores
+/web/bundles/
+/app/bootstrap.php.cache
+/app/cache/*
 /app/config/parameters.yml
-!/app/db/.gitkeep
-/app/db/simplr.db
-!/app/tmp/cache/.gitkeep
-/app/tmp/cache/*
-!/app/tmp/logs/.gitkeep
-/app/tmp/logs/*
-!/web/assets/media/.gitkeep
-/web/assets/media/*
-!/web/assets/plugins/.gitkeep
-/web/assets/plugins/*
-!/web/assets/themes/.gitkeep
-/web/assets/themes/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/build/
+/vendor/
+/bin/
+/composer.phar

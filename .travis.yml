@@ -1,19 +1,13 @@
 language: php
 
 php:
+  - 5.3.3
   - 5.3
   - 5.4
-  - 5.5
 
 before_script:
-  # Copy parameters template for tests (db settings etc)
-  - 'cp app/config/parameters.yml.dist app/config/parameters.yml'
-
-  # Travis appearantly doesn't like to update their composer version regularly
-  - 'composer self-update'
-
-  # Install packages
-  - 'composer install -n'
+  - "composer self-update"
+  - "composer install -n"
 
 script:
-  - 'phpunit -c app'
+  - "phpunit -c app"
