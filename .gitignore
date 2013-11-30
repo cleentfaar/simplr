@@ -1,5 +1,6 @@
 /composer.lock
 /composer.phar
+/scrutinizer.phar
 /.idea
 /vendor
 /app/config/parameters.yml
