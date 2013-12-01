@@ -11,17 +11,48 @@
 
 namespace Simplr\ApplicationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PagesController extends Controller
+class PagesController
 {
+
+    /**
+     * @var \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
+     */
+    private $templating;
+
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectRepository
+     */
+    private $pageRepository;
+
+    /**
+     * @param EngineInterface $templating
+     * @param ObjectRepository $repository
+     */
+    public function __construct(EngineInterface $templating, ObjectRepository $repository)
+    {
+        $this->templating = $templating;
+        $this->pageRepository = $repository;
+    }
+
+    /**
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function indexAction($slug)
     {
         $slug = '/' . ltrim($slug, '/');
-        $page = $this->getDoctrine()->getManager()->getRepository('SimplrApplicationBundle:Page')->findOneBy(array('slug' => $slug));
+        $page = $this->pageRepository->findOneBy(array('slug' => $slug));
         if ($page === null) {
-            throw $this->createNotFoundException(sprintf("Could not find page with slug '%s'", $slug));
+            throw new NotFoundHttpException(sprintf("Could not find page with slug '%s'", $slug));
         }
-        return $this->render('@current_theme/index.html.twig', array('page' => $page));
+        return $this->templating->renderResponse(
+            '@current_theme/index.html.twig',
+            array('page' => $page)
+        );
     }
 }

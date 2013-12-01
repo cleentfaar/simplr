@@ -2,6 +2,8 @@ parameters:
     simplr.optionmanager.class: Simplr\ApplicationBundle\Services\OptionManager
     simplr.mediamanager.class: Simplr\ApplicationBundle\Services\MediaManager
     simplr.twig.simplr_extension.class: Simplr\ApplicationBundle\Twig\SimplrExtension
+    simplr.entity.page.class: Simplr\ApplicationBundle\Entity\Page
+    simplr.controller.pages.class: Simplr\ApplicationBundle\Controller\PagesController
 
 services:
     simplr.optionmanager:
@@ -15,3 +17,11 @@ services:
         arguments: [@service_container, @twig.loader]
         tags:
             - { name: twig.extension }
+    simplr.repository.page:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine # this is an instance of Registry
+        factory_method: getRepository
+        arguments: [ %simplr.entity.page.class% ]
+    simplr.controller.pages:
+        class:     %simplr.controller.pages.class%
+        arguments: [@templating, @simplr.repository.page]

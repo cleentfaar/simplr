@@ -20,4 +20,6 @@ tools:
       design_rules:
         coupling_between_objects: false
   php_analyzer: true
+  php_code_coverage:
+    test_command: 'phpunit -c app'
   sensiolabs_security_checker: true

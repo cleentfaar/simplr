@@ -4,6 +4,6 @@ simplr_admin_routes:
 
 simplr_page:
     pattern:  /{slug}
-    defaults: { _controller: SimplrApplicationBundle:Pages:index, slug: '/' }
+    defaults: { _controller: simplr.controller.pages:indexAction, slug: '/' }
     requirements:
         slug: ".+"
