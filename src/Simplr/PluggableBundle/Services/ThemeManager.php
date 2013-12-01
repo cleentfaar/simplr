@@ -171,14 +171,12 @@ class ThemeManager
         $namespace = "Simplr\\Themes\\$name\\Theme";
         $classPath = $this->pathToThemes . "/" . $name . "/Theme.php";
         if (!file_exists($classPath)) {
-            var_dump(sprintf("CLASSPATH %s DOESNT EXIST", $classPath));
             return null;
         }
         require_once $classPath;
         if (class_exists($namespace)) {
             return new $namespace;
         }
-        var_dump(sprintf("CLASS %s DOESNT EXIST", $namespace));
         return null;
     }
 
