@@ -104,8 +104,7 @@ class MediaManager
         $width = null,
         $height = null,
         $resizeType = 'resize'
-    )
-    {
+    ) {
         $path = $media->getPath();
         $localPathAttempt = $this->pathToMedia . '/' . ltrim($path, '/');
         $localPath = realpath($localPathAttempt);

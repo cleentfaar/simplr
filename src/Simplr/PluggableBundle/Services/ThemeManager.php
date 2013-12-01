@@ -98,8 +98,7 @@ class ThemeManager
     public function getActiveThemeOptions()
     {
         $activeTheme = $this->getActiveTheme();
-        if ($activeTheme === null)
-        {
+        if ($activeTheme === null) {
             return null;
         }
         if (!isset($this->activeThemeOptions)) {
@@ -143,7 +142,10 @@ class ThemeManager
             if ($activeThemeDb !== null) {
                 $activeTheme = $this->getTheme($activeThemeDb);
                 if ($activeTheme !== null) {
-                    $activeThemeConfig = array_merge($this->getDefaultThemeConfiguration(), $activeTheme->getConfiguration());
+                    $activeThemeConfig = array_merge(
+                        $this->getDefaultThemeConfiguration(),
+                        $activeTheme->getConfiguration()
+                    );
                     $this->activeTheme = $activeThemeDb;
                     $this->activeThemeObject = $activeTheme;
                     $this->activeThemeConfig = $activeThemeConfig;
@@ -152,7 +154,10 @@ class ThemeManager
                 throw new \Exception("No active theme was defined, this should never happen!");
             }
             if (empty($this->activeTheme)) {
-                throw new \Exception("No matching object could be found for the active theme in the filesystem, this should never happen!");
+                throw new \Exception(
+                    "No matching object could be found for the active theme in the filesystem," .
+                    "this should never happen!"
+                );
             }
             $this->activeThemeFetched = true;
         }
@@ -190,5 +195,4 @@ class ThemeManager
             'events' => array(),
         );
     }
-
 }
