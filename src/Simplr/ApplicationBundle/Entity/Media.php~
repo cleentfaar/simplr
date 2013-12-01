@@ -1,0 +1,46 @@
+<?php
+
+namespace Simplr\ApplicationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Media
+ *
+ * @ORM\Table(name="simplr_simplr_media")
+ * @ORM\Entity
+ */
+class Media
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="text", nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="text", nullable=false)
+     */
+    private $path;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="options", type="text", nullable=false)
+     */
+    private $options;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}

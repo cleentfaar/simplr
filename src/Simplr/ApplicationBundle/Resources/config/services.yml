@@ -1,7 +1,17 @@
 parameters:
-    simplr.pluginmanager.class: Simplr\Application\Pluggable\PluginManager
+    simplr.optionmanager.class: Simplr\ApplicationBundle\Services\OptionManager
+    simplr.mediamanager.class: Simplr\ApplicationBundle\Services\MediaManager
+    simplr.twig.simplr_extension.class: Simplr\ApplicationBundle\Twig\SimplrExtension
 
 services:
-    simplr.pluginmanager:
-        class: %simplr.pluginmanager.class%
-        arguments: [%path_to_plugins%]
+    simplr.optionmanager:
+        class: %simplr.optionmanager.class%
+        arguments: [@doctrine.orm.entity_manager]
+    simplr.mediamanager:
+        class: %simplr.mediamanager.class%
+        arguments: [%path_to_media%, %uri_to_media%, @doctrine.orm.entity_manager]
+    simplr.twig.simplr_extension:
+        class: %simplr.twig.simplr_extension.class%
+        arguments: [@service_container, @twig.loader]
+        tags:
+            - { name: twig.extension }

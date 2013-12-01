@@ -1,4 +1,4 @@
-simplr_application:
+simplr:
     resource: "@SimplrApplicationBundle/Resources/config/routing.yml"
     prefix:   /
 

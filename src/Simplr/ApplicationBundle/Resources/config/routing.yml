@@ -1,3 +1,9 @@
 simplr_admin_routes:
     resource: routing_admin.yml
     prefix: /admin
+
+simplr_page:
+    pattern:  /{slug}
+    defaults: { _controller: SimplrApplicationBundle:Pages:index, slug: '/' }
+    requirements:
+        slug: ".+"

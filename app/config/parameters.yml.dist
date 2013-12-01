@@ -13,5 +13,8 @@ parameters:
 
     locale:             en
     secret:             ThisTokenIsNotSoSecretChangeIt
-    path_to_plugins:    /path/to/plugins
-    path_to_themes:     /path/to/themes
+    path_to_themes:     %kernel.root_dir%/Resources/Simplr/Themes
+    path_to_plugins:    %kernel.root_dir%/Resources/Simplr/Plugins
+    table_prefix:       simplr_
+    path_to_media:      %kernel.root_dir%/../web/assets/media
+    uri_to_media:       /assets/media

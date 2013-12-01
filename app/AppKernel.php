@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Simplr\ApplicationBundle\SimplrApplicationBundle(),
             new Cleentfaar\Bundle\DoctrineTablePrefixBundle\CleentfaarDoctrineTablePrefixBundle(),
+            new Simplr\PluggableBundle\SimplrPluggableBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

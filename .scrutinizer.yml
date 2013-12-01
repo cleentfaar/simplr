@@ -7,6 +7,7 @@ before_commands:
 
 tools:
   php_code_sniffer:
+    enabled: true
     config:
       standard: PSR2
   php_cs_fixer: true

@@ -65,5 +65,6 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
+# Table prefix set-up
 cleentfaar_doctrine_table_prefix:
-    prefix: simplr_
+    prefix: %table_prefix%

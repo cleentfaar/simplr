@@ -1,24 +1,42 @@
 <?php
-/**
- * This file is part of the Clevr CMS
- *
- * @author Cas Leentfaar
- * @see http://github.com/cleentfaar/clevr
- */
-namespace Simplr\Twig;
 
-use Simplr\ApplicationBundle\Model\Media;
+/*
+ * This file is part of the Simplr package.
+ *
+ * (c) Cas Leentfaar <info@casleentfaar.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Simplr\ApplicationBundle\Twig;
+
+use Simplr\ApplicationBundle\Entity\Media;
+use Symfony\Bundle\TwigBundle\Loader\FilesystemLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SimplrExtension extends \Twig_Extension
 {
 
     /**
-     * @param Application $app
+     * @param FilesystemLoader $loader
+     * @param ContainerInterface $container
      */
-    public function __construct(Application $app)
+    public function __construct(ContainerInterface $container, FilesystemLoader $loader)
     {
-        $this->app = $app;
+        $this->container = $container;
+        $this->loader = $loader;
+        $themePath = $container->get('simplr.thememanager')->getActiveThemeViewsPath();
+        if ($themePath !== null) {
+            $viewNamespace = "current_theme";
+            $this->loader->addPath($themePath, $viewNamespace);
+        }
+        /*foreach ($container->get('simplrs.pluginmanager')->getActivePluginPaths() as $path) {
+            $pluginDir = basename($path);
+            $viewPath = realpath($path . '/Resources/views');
+            $viewNamespace = "".$pluginDir."Plugin";
+            $this->loader->addPath($viewPath, $viewNamespace);
+        }*/
     }
 
     /**
@@ -26,7 +44,7 @@ class SimplrExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'simplr_twig_extension';
+        return 'simplr.twig_extension';
     }
 
     /**
@@ -54,8 +72,12 @@ class SimplrExtension extends \Twig_Extension
     public function getImageElementFromMedia($mediaId, array $options)
     {
         $media = $this->getMedia($mediaId);
+        if ($media === null) {
+            return null;
+        }
+        $url = $this->container->get('simplr.mediamanager')->getMediaUrl($media, $options);
         $attr = array(
-            'src' => $media->getUrl($options),
+            'src' => $url,
             'title' => $media->getTitle(),
             'alt' => $media->getTitle(),
         );
@@ -78,7 +100,7 @@ class SimplrExtension extends \Twig_Extension
      */
     public function getMedia($mediaId)
     {
-        return $this->app['simplr_mediamanager']->getMedia($mediaId);
+        return new Media();
     }
 
     /**
@@ -89,7 +111,7 @@ class SimplrExtension extends \Twig_Extension
     {
         $media = $this->getMedia($mediaId);
         if ($media !== null) {
-            $media->getUrl($options);
+            return $this->container->get('simplr.mediamanager')->getMediaUrl($media, $options);
         }
         return null;
     }
@@ -101,7 +123,7 @@ class SimplrExtension extends \Twig_Extension
      */
     public function getOptionValue($name, $default = null)
     {
-        return $this->app['simplr_optionmanager']->getOptionValue($name, $default);
+        return $this->container->get('simplr.optionmanager')->getOptionValue($name, $default);
     }
 
     /**
@@ -110,7 +132,7 @@ class SimplrExtension extends \Twig_Extension
      */
     public function getThemeOptionValue($name, $default = null)
     {
-        return $this->app['simplr_thememanager']->getActiveThemeOption($name, $default);
+        return $this->container->get('simplr.thememanager')->getActiveThemeOption($name, $default);
     }
 
     /**
@@ -119,7 +141,7 @@ class SimplrExtension extends \Twig_Extension
      */
     public function widget($name)
     {
-        return $this->app['simplr_widgetmanager']->renderWidget($name);
+        return $this->container->get('simplr.widgetmanager')->renderWidget($name);
     }
 
     /**
@@ -128,7 +150,7 @@ class SimplrExtension extends \Twig_Extension
      */
     public function widgetContainer($name)
     {
-        return $this->app['simplr_widgetmanager']->renderWidgetContainer($name);
+        return $this->container->get('simplr.widgetmanager')->renderWidgetContainer($name);
     }
 
     /**
@@ -137,7 +159,6 @@ class SimplrExtension extends \Twig_Extension
      */
     public function routeExists($name)
     {
-        $routes = $this->app['routes'];
-        return (null === $routes->get($name)) ? false : true;
+        return (null === $this->container->get('router')->getRouteCollection()->get($name)) ? false : true;
     }
 }
