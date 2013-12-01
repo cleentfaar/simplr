@@ -154,10 +154,12 @@ class ThemeManager
                 throw new \Exception("No active theme was defined, this should never happen!");
             }
             if (empty($this->activeTheme)) {
-                throw new \Exception(
-                    "No matching object could be found for the active theme in the filesystem," .
+                throw new \Exception(sprintf(
+                    "No matching object could be found for the active theme (%s) in the filesystem, " .
                     "this should never happen!"
-                );
+                    ,
+                    $activeThemeDb
+                ));
             }
             $this->activeThemeFetched = true;
         }

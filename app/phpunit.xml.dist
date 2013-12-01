@@ -30,6 +30,7 @@
             <directory>../src</directory>
             <exclude>
                 <directory>../src/*/*/Tests</directory>
+                <directory>../src/*/*/Command</directory>
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/Bundle/*Bundle/Resources</directory>
             </exclude>
