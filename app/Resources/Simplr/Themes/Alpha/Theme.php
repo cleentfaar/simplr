@@ -6,6 +6,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Theme extends BaseTheme
 {
+    /**
+     * @return array
+     */
     public function getConfiguration()
     {
         return array(
@@ -13,6 +16,9 @@ class Theme extends BaseTheme
         );
     }
 
+    /**
+     * @param EventDispatcherInterface $dispatcher
+     */
     public function register(EventDispatcherInterface $dispatcher)
     {
         // $dispatcher->...
