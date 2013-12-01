@@ -117,5 +117,4 @@ class Option
     {
         $this->value = json_decode($this->value);
     }
-
 }

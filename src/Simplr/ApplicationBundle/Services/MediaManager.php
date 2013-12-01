@@ -44,7 +44,10 @@ class MediaManager
     public function __construct($pathToMedia, $uriToMedia, EntityManager $em)
     {
         if (!is_dir($pathToMedia)) {
-            throw new \Exception(sprintf("Path provided for media is not a valid directory (%s), did you accidentally remove it?", $pathToMedia));
+            throw new \Exception(sprintf(
+                "Path provided for media is not a valid directory (%s), did you accidentally remove it?",
+                $pathToMedia
+            ));
         }
         $this->pathToMedia = $pathToMedia;
         $this->uriToMedia = $uriToMedia;
@@ -68,7 +71,7 @@ class MediaManager
 
     public function getMediaUrl(Media $media, array $options = array())
     {
-        $baseUrl = '/' . ltrim($this->uriToMedia,'/') . '/' . ltrim($media->getPath(), '/');
+        $baseUrl = '/' . ltrim($this->uriToMedia, '/') . '/' . ltrim($media->getPath(), '/');
         $url = pathinfo($baseUrl, PATHINFO_DIRNAME) . '/' . pathinfo($baseUrl, PATHINFO_FILENAME);
         if (isset($options['dimensions'])) {
             $url .= '-' . $options['dimensions'];
@@ -95,15 +98,24 @@ class MediaManager
      * @param string $resizeType
      * @throws \Exception
      */
-    public function resizeImageFromMedia(Media $media, $targetPath, $width = null, $height = null, $resizeType = 'resize')
+    public function resizeImageFromMedia(
+        Media $media,
+        $targetPath,
+        $width = null,
+        $height = null,
+        $resizeType = 'resize'
+    )
     {
         $path = $media->getPath();
         $localPathAttempt = $this->pathToMedia . '/' . ltrim($path, '/');
         $localPath = realpath($localPathAttempt);
         if (!$localPath) {
-            throw new \Exception(sprintf("The path of the image on the filesystem does not exist, attempted %s", $localPath));
+            throw new \Exception(sprintf(
+                "The path of the image on the filesystem does not exist, attempted %s",
+                $localPath
+            ));
         }
-        $this->resizeImage($resizeType, $localPath, $targetPath, $width, $height);
+        $this->resizeImage($localPath, $targetPath, $width, $height, $resizeType);
     }
 
 
@@ -116,7 +128,7 @@ class MediaManager
      * @param int $quality
      * @return Image
      */
-    private function resizeImage($resizeType = 'resize', $localPath, $targetPath, $width, $height, $quality = 100)
+    private function resizeImage($localPath, $targetPath, $width, $height, $resizeType = 'resize', $quality = 100)
     {
         $transparentExtensions = array(
             'png',

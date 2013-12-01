@@ -54,7 +54,9 @@ class SimplrExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('routeExists', array($this, 'routeExists')),
-            new \Twig_SimpleFunction('image', array($this, 'getImageElementFromMedia'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('image', array(
+                                                   $this, 'getImageElementFromMedia'
+                                              ), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('media', array($this, 'getMedia')),
             new \Twig_SimpleFunction('media_url', array($this, 'getMediaUrl')),
             new \Twig_SimpleFunction('option', array($this, 'getOptionValue')),
@@ -89,9 +91,9 @@ class SimplrExtension extends \Twig_Extension
         }
         $attrstr = '';
         foreach ($attr as $attKey => $attVal) {
-            $attrstr .= $attKey.'="'.$attVal.'" ';
+            $attrstr .= $attKey . '="' . $attVal . '" ';
         }
-        return '<img '.trim($attrstr).'/>';
+        return '<img ' . trim($attrstr) . '/>';
     }
 
     /**

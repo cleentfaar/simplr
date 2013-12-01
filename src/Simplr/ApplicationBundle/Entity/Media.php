@@ -147,5 +147,4 @@ class Media
     {
         $this->options = json_decode($this->options);
     }
-
 }

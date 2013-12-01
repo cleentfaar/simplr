@@ -244,5 +244,4 @@ class Page
     {
         $this->options = json_decode($this->options);
     }
-
 }
