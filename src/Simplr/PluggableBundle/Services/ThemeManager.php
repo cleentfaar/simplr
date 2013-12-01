@@ -141,25 +141,21 @@ class ThemeManager
             $activeThemeDb = $this->optionManager->getOptionValue('active_theme', null);
             if ($activeThemeDb !== null) {
                 $activeTheme = $this->getTheme($activeThemeDb);
-                if ($activeTheme !== null) {
-                    $activeThemeConfig = array_merge(
-                        $this->getDefaultThemeConfiguration(),
-                        $activeTheme->getConfiguration()
-                    );
-                    $this->activeTheme = $activeThemeDb;
-                    $this->activeThemeObject = $activeTheme;
-                    $this->activeThemeConfig = $activeThemeConfig;
+                if ($activeTheme === null) {
+                    throw new \Exception(sprintf(
+                        "No matching object could be found in the filesystem for the active theme in the database (%s)",
+                        $activeThemeDb
+                    ));
                 }
+                $activeThemeConfig = array_merge(
+                    $this->getDefaultThemeConfiguration(),
+                    $activeTheme->getConfiguration()
+                );
+                $this->activeTheme = $activeThemeDb;
+                $this->activeThemeObject = $activeTheme;
+                $this->activeThemeConfig = $activeThemeConfig;
             } else {
                 throw new \Exception("No active theme was defined, this should never happen!");
-            }
-            if (empty($this->activeTheme)) {
-                throw new \Exception(sprintf(
-                    "No matching object could be found for the active theme (%s) in the filesystem, " .
-                    "this should never happen!"
-                    ,
-                    $activeThemeDb
-                ));
             }
             $this->activeThemeFetched = true;
         }
@@ -176,6 +172,7 @@ class ThemeManager
         if (class_exists($namespace)) {
             return new $namespace;
         }
+        var_dump(sprintf("CLASS %s DOESNT EXIST", $namespace));
         return null;
     }
 

@@ -17,7 +17,7 @@ class DefaultControllerTest extends FunctionalTest
 {
     public function testIndex()
     {
-        $this->loadFixtures(array('Simplr\ApplicationBundle\DataFixtures\LoadDefaultData'));
+        $this->loadDefaultFixtures();
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/admin/dashboard');
