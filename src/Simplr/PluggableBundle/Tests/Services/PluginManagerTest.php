@@ -11,15 +11,16 @@
 
 namespace Simplr\ApplicationBundle\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
+use Simplr\ApplicationBundle\Test\UnitTest;
 
-class PluginManagerTest extends WebTestCase
+class PluginManagerTest extends UnitTest
 {
     public function testConstruct()
     {
         /**
          * @todo Write initial tests...
          */
+        $this->loadDefaultFixtures();
         $this->assertTrue(true);
     }
 }
