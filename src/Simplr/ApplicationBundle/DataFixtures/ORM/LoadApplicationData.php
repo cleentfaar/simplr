@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Simplr\ApplicationBundle\DataFixtures;
+namespace Simplr\ApplicationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Simplr\ApplicationBundle\Entity\Option;
 
-class LoadDefaultData implements FixtureInterface
+class LoadApplicationData implements FixtureInterface
 {
     /**
      * {@inheritDoc}

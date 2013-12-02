@@ -54,11 +54,9 @@ class SimplrExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('routeExists', array($this, 'routeExists')),
-            new \Twig_SimpleFunction('image', array(
-                                                   $this, 'getImageElementFromMedia'
-                                              ), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('media', array($this, 'getMedia')),
-            new \Twig_SimpleFunction('media_url', array($this, 'getMediaUrl')),
+            new \Twig_SimpleFunction('get_media', array($this, 'getMedia')),
+            new \Twig_SimpleFunction('get_media_url', array($this, 'getMediaUrl')),
+            new \Twig_SimpleFunction('get_media_path', array($this, 'getMediaPath')),
             new \Twig_SimpleFunction('option', array($this, 'getOptionValue')),
             new \Twig_SimpleFunction('theme_option', array($this, 'getThemeOptionValue')),
             new \Twig_SimpleFunction('widgetcontainer', array($this, 'widgetContainer')),
@@ -66,34 +64,11 @@ class SimplrExtension extends \Twig_Extension
         );
     }
 
-    /**
-     * @param $mediaId
-     * @param array $options
-     * @return string
-     */
-    public function getImageElementFromMedia($mediaId, array $options)
+    public function getFilters()
     {
-        $media = $this->getMedia($mediaId);
-        if ($media === null) {
-            return null;
-        }
-        $url = $this->container->get('simplr.mediamanager')->getMediaUrl($media, $options);
-        $attr = array(
-            'src' => $url,
-            'title' => $media->getTitle(),
-            'alt' => $media->getTitle(),
+        return array(
+            //new \Twig_SimpleFilter('resize', array($this, 'resizeImage')),
         );
-        $attr = array_merge($attr, $options['attributes']);
-        if (isset($options['dimensions'])) {
-            list($dimensionWidth, $dimensionHeight) = explode("x", $options['dimensions']);
-            $attr['width'] = $dimensionWidth;
-            $attr['height'] = $dimensionHeight;
-        }
-        $attrstr = '';
-        foreach ($attr as $attKey => $attVal) {
-            $attrstr .= $attKey . '="' . $attVal . '" ';
-        }
-        return '<img ' . trim($attrstr) . '/>';
     }
 
     /**
@@ -102,18 +77,56 @@ class SimplrExtension extends \Twig_Extension
      */
     public function getMedia($mediaId)
     {
-        return new Media();
+        return $this->container->get('simplr.mediamanager')->getMedia($mediaId);
     }
 
     /**
      * @param $name
      * @return null|string
      */
-    public function getMediaUrl($mediaId, array $options = array())
+    public function getMediaPath($media, $options = array())
     {
-        $media = $this->getMedia($mediaId);
+        if (is_int($media)) {
+            $media = $this->getMedia($media);
+        } elseif (!is_object($media) || !($media instanceof Media)) {
+            throw new \Exception("Must supply either a media ID or media instance");
+        }
         if ($media !== null) {
-            return $this->container->get('simplr.mediamanager')->getMediaUrl($media, $options);
+            return $media->getPath();
+        }
+        return null;
+    }
+
+    /**
+     * @param $name
+     * @return null|string
+     */
+    public function getMediaUrl($media, array $options = array())
+    {
+        if (is_int($media)) {
+            $media = $this->getMedia($media);
+        } elseif (!is_object($media) || !($media instanceof Media)) {
+            throw new \Exception("Must supply either a media ID or media instance");
+        }
+        if ($media !== null) {
+            if (array_key_exists('resize', $options)) {
+                $path = $this->getMediaPath($media);
+                /**
+                 * @var \Twig_SimpleFilter $imagineFilter
+                 */
+                $imagineFilter = $this->container->get('twig')->getFilter('imagine_filter');
+                $callable = $imagineFilter->getCallable();
+
+                $resizeFilter = $options['resize'];
+                list($width, $height) = $this->container->get('simplr.mediamanager')->getDimensionsForResizeFilter($resizeFilter);
+                $absoluteUrl = isset($options['absoluteUrl']) ? (bool) $options['absoluteUrl'] : false;
+                $uri = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME);
+                $uri = $uri . '-' . $width . 'x' . $height . '.' . pathinfo($path, PATHINFO_EXTENSION);
+                $uri = $callable($uri, $resizeFilter, $absoluteUrl);
+
+                return $uri;
+            }
+            return $this->container->get('simplr.mediamanager')->getMediaUrl($media);
         }
         return null;
     }

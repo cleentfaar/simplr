@@ -12,7 +12,6 @@
 namespace Simplr\ApplicationBundle\Services;
 
 use Doctrine\ORM\EntityManager;
-use Gregwar\Image\Image;
 use Simplr\ApplicationBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,8 +69,13 @@ class MediaManager
         return $this->media[$mediaId];
     }
 
-    public function getMediaUrl(Media $media, array $options = array())
+    public function getMediaUrl($media, array $options = array())
     {
+        if (is_int($media)) {
+            $media = $this->getMedia($media);
+        } elseif (!is_object($media) || !($media instanceof Media)) {
+            throw new \Exception("Given media argument must be either a media ID or Media entity instance");
+        }
         $baseUrl = '/' . ltrim($this->uriToMedia, '/') . '/' . ltrim($media->getPath(), '/');
         $url = pathinfo($baseUrl, PATHINFO_DIRNAME) . '/' . pathinfo($baseUrl, PATHINFO_FILENAME);
         if (isset($options['dimensions'])) {
@@ -82,12 +86,27 @@ class MediaManager
     }
 
     /**
+     * @param $resizeFilter
+     * @return array
+     * @todo Will be replaced with dimensions from database/settings
+     */
+    public function getDimensionsForResizeFilter($resizeFilter)
+    {
+        switch ($resizeFilter) {
+            case 'resize':
+            default:
+                return array(400, 300);
+                break;
+        }
+    }
+
+    /**
      * @param $path
      * @return null|Media
      */
     public function getMediaByPath($path)
     {
-        $media = $this->em->getRepository('Simplr\Entity\Media')->findOneBy(array('path' => $path));
+        $media = $this->em->getRepository('SimplrApplicationBundle:Media')->findOneBy(array('path' => $path));
         return $media;
     }
 

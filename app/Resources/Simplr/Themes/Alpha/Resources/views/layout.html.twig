@@ -40,7 +40,9 @@
                     {% if theme_option('logo_type') == 'text' %}
                         <a class="navbar-brand" href="#">{{ theme_option('logo_type_text') }}</a>
                     {% else %}
-                        {{ image(theme_option('logo_type_image'), {'dimensions': '52x56', 'attributes': {'title':option('site_title'), 'alt':option('site_title')}}) }}
+                        <img src="{{ get_media_url(theme_option('logo_type_image'), {'resize': 'resize'}) }}"/>
+                        {#<img src="{{ get_media_path(theme_option('logo_type_image'))|imagine_filter('resize') }}"/>#}
+                        {#{{ image(theme_option('logo_type_image'), {'dimensions': '52x56', 'attributes': {'title':option('site_title'), 'alt':option('site_title')}}) }}#}
                         {#
                             If you want more control, you could do:
 

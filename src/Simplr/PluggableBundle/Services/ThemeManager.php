@@ -70,13 +70,13 @@ class ThemeManager
      * @param $option
      * @return null|mixed
      */
-    public function getActiveThemeOption($option)
+    public function getActiveThemeOption($option, $default = null)
     {
         $options = $this->getActiveThemeOptions();
-        if (!empty($options) && isset($options[$option])) {
-            return $options[$option];
+        if (isset($options->{$option})) {
+            return $options->{$option};
         }
-        return null;
+        return $default;
     }
 
     /**
@@ -154,6 +154,7 @@ class ThemeManager
                 $this->activeTheme = $activeThemeDb;
                 $this->activeThemeObject = $activeTheme;
                 $this->activeThemeConfig = $activeThemeConfig;
+                $this->activeThemeOptions = $this->optionManager->getOptionValue('theme_options_'.$activeThemeDb, new \stdClass());
             } else {
                 throw new \Exception("No active theme was defined, this should never happen!");
             }

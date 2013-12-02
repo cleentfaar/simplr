@@ -4,6 +4,7 @@ parameters:
     simplr.twig.simplr_extension.class: Simplr\ApplicationBundle\Twig\SimplrExtension
     simplr.entity.page.class: Simplr\ApplicationBundle\Entity\Page
     simplr.controller.pages.class: Simplr\ApplicationBundle\Controller\PagesController
+    simplr.controller.images.class: Simplr\ApplicationBundle\Controller\ImagesController
 
 services:
     simplr.optionmanager:
@@ -25,3 +26,10 @@ services:
     simplr.controller.pages:
         class:     %simplr.controller.pages.class%
         arguments: [@templating, @simplr.repository.page]
+    simplr.controller.images:
+        class:     %simplr.controller.images.class%
+        arguments: [@liip_imagine.data.manager, @liip_imagine.filter.manager, @liip_imagine.cache.manager]
+    simplr.imagine_filter_loader:
+        class: %simplr.imagine_filter_loader.class%
+        tags:
+            - { name: liip_imagine.filter.loader, loader: simplr.imagine_filter_loader }

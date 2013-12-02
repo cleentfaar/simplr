@@ -1,4 +1,7 @@
+_imagine:
+    resource: .
+    type:     imagine
+
 simplr:
     resource: "@SimplrApplicationBundle/Resources/config/routing.yml"
     prefix:   /
-

@@ -1,6 +1,7 @@
 parameters:
     simplr.pluginmanager.class: Simplr\PluggableBundle\Services\PluginManager
     simplr.thememanager.class: Simplr\PluggableBundle\Services\ThemeManager
+    simplr.imagine_filter_loader.class: Simplr\ApplicationBundle\Imagine\Filter\Loader\SimplrLoader
 
 services:
     simplr.pluginmanager:

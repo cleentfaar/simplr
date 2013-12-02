@@ -12,7 +12,8 @@ tools:
     enabled: true
     config:
       standard: PSR2
-  php_cs_fixer: true
+  php_cs_fixer:
+    enabled: true
   php_mess_detector:
     enabled: true
     config:
@@ -21,7 +22,9 @@ tools:
         too_many_methods: false
       design_rules:
         coupling_between_objects: false
-  php_analyzer: true
+  php_analyzer:
+    enabled: true
+  sensiolabs_security_checker:
+    enabled: true
   php_code_coverage:
     test_command: 'phpunit -c app'
-  sensiolabs_security_checker: true
