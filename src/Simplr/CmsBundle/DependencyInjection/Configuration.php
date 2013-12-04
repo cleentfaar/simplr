@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         //$rootNode = $treeBuilder->root('simplr_application');
-        $treeBuilder->root('simplr_application');
+        $treeBuilder->root('simplr');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

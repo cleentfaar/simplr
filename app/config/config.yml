@@ -56,6 +56,13 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            SimplrCore:
+                type: annotation
+                is_bundle: false
+                dir: %kernel.root_dir%/../vendor/cleentfaar/simplr-core/src/Simplr/Core/Entity
+                prefix: Simplr\Core\Entity
+                alias: SimplrCore
 
 # Swiftmailer Configuration
 swiftmailer:

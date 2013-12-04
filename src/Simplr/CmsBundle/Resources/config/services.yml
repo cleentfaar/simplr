@@ -6,6 +6,7 @@ parameters:
     simplr.twig.cms_extension.class: Simplr\CmsBundle\Twig\CmsExtension
     simplr.twig.pluggable_extension.class: Simplr\PluggableBundle\Twig\PluggableExtension
     simplr.entity.page.class: Simplr\CmsBundle\Entity\Page
+    simplr.entity.media.class: Simplr\Core\Entity\Media
     simplr.controller.pages.class: Simplr\CmsBundle\Controller\PagesController
     simplr.controller.images.class: Simplr\CmsBundle\Controller\ImagesController
 
@@ -15,10 +16,9 @@ services:
         arguments: [@doctrine.orm.entity_manager]
     simplr.mediamanager:
         class: %simplr.mediamanager.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@simplr.repository.media]
     simplr.imageresizer:
         class: %simplr.imageresizer.class%
-        arguments: []
     simplr.mediaurlgenerator:
         class: %simplr.mediaurlgenerator.class%
         arguments: [@request, @simplr.imageresizer, %path_to_media%, %uri_to_media%]
@@ -38,6 +38,11 @@ services:
         factory_service: doctrine # this is an instance of Registry
         factory_method: getRepository
         arguments: [ %simplr.entity.page.class% ]
+    simplr.repository.media:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine # this is an instance of Registry
+        factory_method: getRepository
+        arguments: [ %simplr.entity.media.class% ]
     simplr.controller.pages:
         class:     %simplr.controller.pages.class%
         arguments: [@templating, @simplr.repository.page]
