@@ -1,0 +1,13 @@
+#simplr_media_cache:
+#    resource: .
+#    type:     simplr_media_cache_routing
+
+simplr_admin_routes:
+    resource: routing_admin.yml
+    prefix: /admin
+
+simplr_page:
+    pattern:  /{slug}
+    defaults: { _controller: simplr.controller.pages:indexAction, slug: '/' }
+    requirements:
+        slug: ".+"

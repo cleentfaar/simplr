@@ -69,20 +69,20 @@ swiftmailer:
 cleentfaar_doctrine_table_prefix:
     prefix: %table_prefix%
 
-liip_imagine:
-    driver:               gd
-    web_root:             %kernel.root_dir%/../web
-    data_root:            %kernel.root_dir%/../web/assets/media
-    #data_root:           %liip_imagine.web_root%
-    cache_mkdir_mode:     0777
-    cache_prefix:         /assets/media/cache
-    cache:                web_path
-    cache_clearer:        true
-    data_loader:          filesystem
-    controller_action:    simplr.controller.images:filterAction
-    formats:              []
-    filter_sets:
-        resize:
-            path:         ''
-            #filters:
-            #    relative_resize: ~
+#liip_imagine:
+#    driver:               gd
+#    web_root:             %kernel.root_dir%/../web
+#    data_root:            %kernel.root_dir%/../web/assets/media
+#    #data_root:           %liip_imagine.web_root%
+#    cache_mkdir_mode:     0777
+#    cache_prefix:         /assets/media/cache
+#    cache:                web_path
+#    cache_clearer:        true
+#    data_loader:          filesystem
+#    controller_action:    simplr.controller.images:filterAction
+#    formats:              []
+#    filter_sets:
+#        resize:
+#            path:         ''
+#            filters:
+#                simplr.imagine_filter_loader: { }

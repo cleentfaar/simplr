@@ -11,7 +11,7 @@
 
 namespace Simplr\PluggableBundle\Services;
 
-use Simplr\ApplicationBundle\Services\OptionManager;
+use Simplr\CmsBundle\Services\OptionManager;
 use Simplr\PluggableBundle\BaseTheme;
 use Simplr\PluggableBundle\Pluggable;
 
