@@ -9,7 +9,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "c:\\wamp\\www\\simplr-core"
+            "url": "https://github.com/cleentfaar/simplr-core.git"
         }
     ],
     "require": {
