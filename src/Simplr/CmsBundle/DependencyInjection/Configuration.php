@@ -36,9 +36,4 @@ class Configuration implements ConfigurationInterface
 
         return $treeBuilder;
     }
-
-    public function prepend(ContainerBuilder $container)
-    {
-        // ...
-    }
 }

@@ -87,10 +87,10 @@ liip_imagine:
     #data_loader:          filesystem
     #controller_action:    liip_imagine.controller:filterAction
     #formats:              []
-    filter_sets:
-        simplr_themes:
-            filters:
-                thumbnail: { size: [50, 50], mode: outbound }
+    #filter_sets:
+    #    simplr_themes:
+    #        filters:
+    #            thumbnail: { size: [50, 50], mode: outbound }
 
 #liip_imagine:
 #    driver:               gd
