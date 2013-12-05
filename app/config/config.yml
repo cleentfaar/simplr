@@ -76,6 +76,22 @@ swiftmailer:
 cleentfaar_doctrine_table_prefix:
     prefix: %table_prefix%
 
+liip_imagine:
+    #driver:               gd
+    web_root:             %kernel.root_dir%/../web
+    data_root:            %kernel.root_dir%/../web/assets/media
+    cache_mkdir_mode:     0777
+    cache_prefix:         /assets/media/cache
+    #cache:                web_path
+    #cache_clearer:        true
+    #data_loader:          filesystem
+    #controller_action:    liip_imagine.controller:filterAction
+    #formats:              []
+    filter_sets:
+        simplr_themes:
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }
+
 #liip_imagine:
 #    driver:               gd
 #    web_root:             %kernel.root_dir%/../web

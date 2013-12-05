@@ -1,3 +1,13 @@
+_imagine:
+    resource: .
+    type:     imagine
+
+#simplr_media_cache_debug:
+#    pattern:  /assets/media/cache/{slug}
+#    defaults: { _controller: simplr.controller.images:indexAction }
+#    requirements:
+#        slug: ".+"
+
 #simplr_media_cache:
 #    resource: .
 #    type:     simplr_media_cache_routing

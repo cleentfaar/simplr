@@ -19,6 +19,7 @@ services:
         arguments: [@simplr.repository.media]
     simplr.imageresizer:
         class: %simplr.imageresizer.class%
+        arguments: [{'alpha-resize-logo':{'dimensions':[100,200]}}]
     simplr.mediaurlgenerator:
         class: %simplr.mediaurlgenerator.class%
         arguments: [@request, @simplr.imageresizer, %path_to_media%, %uri_to_media%]
@@ -49,7 +50,3 @@ services:
     simplr.controller.images:
         class:     %simplr.controller.images.class%
         arguments: [@templating, @simplr.repository.page]
-    simplr.imagine_filter_loader:
-        class: %simplr.imagine_filter_loader.class%
-        tags:
-            - { name: liip_imagine.filter.loader, loader: simplr.imagine_filter_loader }
