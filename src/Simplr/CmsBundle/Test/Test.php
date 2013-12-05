@@ -18,6 +18,6 @@ abstract class Test extends WebTestCase
 
     protected function loadDefaultFixtures()
     {
-        return $this->loadFixtures(array('Simplr\CmsBundle\DataFixtures\LoadDefaultData'));
+        return $this->loadFixtures(array('Simplr\CmsBundle\DataFixtures\ORM\LoadCmsData'));
     }
 }

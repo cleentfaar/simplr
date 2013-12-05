@@ -15,7 +15,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Simplr\CmsBundle\Entity\Option;
 
-class LoadApplicationData implements FixtureInterface
+class LoadCmsData implements FixtureInterface
 {
     /**
      * {@inheritDoc}

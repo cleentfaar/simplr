@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Simplr\ApplicationBundle\Tests;
+namespace Simplr\PluggableBundle\Tests\Services;
 
-use Simplr\ApplicationBundle\Test\UnitTest;
+use Simplr\CmsBundle\Test\UnitTest;
 
 class PluginManagerTest extends UnitTest
 {
