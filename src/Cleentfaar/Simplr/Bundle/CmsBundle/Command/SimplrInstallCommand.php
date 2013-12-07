@@ -180,7 +180,7 @@ EOT
                     $this->targetPath
                 )
             );
-            return true;
+            return 0;
         } else {
             $output->writeln("<error>Simplr failed to be installed!</error>");
             if (!empty($failedReasons)) {
@@ -192,7 +192,7 @@ EOT
                     }
                 }
             }
-            return false;
+            return 1;
         }
     }
 }
