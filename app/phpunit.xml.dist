@@ -32,6 +32,7 @@
             <exclude>
                 <directory>../src/Cleentfaar/Simplr/Core/Tests</directory>
                 <directory>../src/Cleentfaar/Simplr/Bundle/*/Tests</directory>
+                <directory>../src/Cleentfaar/Simplr/Bundle/*/Command</directory>
                 <directory>../src/Cleentfaar/Simplr/Bundle/*/Resources</directory>
             </exclude>
         </whitelist>
