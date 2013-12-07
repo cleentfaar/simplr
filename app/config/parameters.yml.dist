@@ -14,5 +14,10 @@ parameters:
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
 
+    table_prefix: simplr_
+    pathto_plugins: '%kernel.root_dir%/Resources/plugins'
+    pathto_themes: '%kernel.root_dir%/Resources/themes'
+    pathto_uploads: '%kernel.root_dir%/Resources/uploads'
+    pathto_translations: '%kernel.root_dir%/Resources/translations'
     pathto_nodejs: node
-    pathto_nodejs_modules: %kernel.root_dir%/Resources/node_modules
+    pathto_nodejs_modules: %kernel.root_dir%/../bin/node_modules

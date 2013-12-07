@@ -1,11 +1,26 @@
 parameters:
     simplr.backend.menu.builder.class: Cleentfaar\Simplr\Bundle\CmsBundle\Menu\Backend\MenuBuilder
     simplr.backend.menu.item.class: Knp\Menu\MenuItem
+    simplr.controller_listener.class: Cleentfaar\Simplr\Bundle\CmsBundle\EventListener\ControllerListener
+    simplr.optionmanager.class: Cleentfaar\Simplr\Core\Services\OptionManager
+    simplr.pluginmanager.class: Cleentfaar\Simplr\Core\Services\PluginManager
+    simplr.thememanager.class: Cleentfaar\Simplr\Core\Services\ThemeManager
 
 services:
-#    simplr.example:
-#        class: %simplr.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    simplr.optionmanager:
+        class: %simplr.optionmanager.class%
+        arguments: [@doctrine.orm.entity_manager]
+    simplr.pluginmanager:
+        class: %simplr.pluginmanager.class%
+        arguments: [%pathto_plugins%, @simplr.optionmanager]
+    simplr.thememanager:
+        class: %simplr.thememanager.class%
+        arguments: [%pathto_themes%, @simplr.optionmanager]
+    simplr.controller_listener:
+        class: %simplr.controller_listener.class%
+        arguments: [@event_dispatcher, @simplr.thememanager, @simplr.pluginmanager]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
     simplr.backend.menu.builder:
         class: %simplr.backend.menu.builder.class%
         arguments: ["@knp_menu.factory","@translator","@event_dispatcher"]

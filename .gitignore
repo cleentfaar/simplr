@@ -2,10 +2,18 @@
 /.idea
 
 # Simplr ignores
+/bin/*
+!bin/node_modules/.gitkeep
 /composer.lock
 /scrutinizer.phar
-/app/Resources/node_modules/*
-!app/Resources/node_modules/.gitkeep
+/app/Resources/plugins/*
+!app/Resources/plugins/.gitkeep
+/app/Resources/themes/*
+!app/Resources/themes/.gitkeep
+/app/Resources/uploads/*
+!app/Resources/uploads/.gitkeep
+/app/Resources/translations/*
+!app/Resources/translations/.gitkeep
 /web/assets/themes/*
 !web/assets/themes/.gitkeep
 /web/assets/plugins/*
@@ -23,5 +31,4 @@
 !app/logs/.gitkeep
 /build/
 /vendor/
-/bin/
 /composer.phar

@@ -82,6 +82,17 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        mappings:
+            Simplr:
+                type: annotation
+                is_bundle: false
+                dir: %kernel.root_dir%/../src/Cleentfaar/Simplr/Core/Entity
+                prefix: Cleentfaar\Simplr\Core\Entity
+                alias: Simplr
+
+# Table prefix set-up
+cleentfaar_doctrine_table_prefix:
+    prefix: %table_prefix%
 
 # Swiftmailer Configuration
 swiftmailer:

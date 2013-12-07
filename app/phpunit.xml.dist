@@ -14,7 +14,7 @@
     bootstrap                   = "bootstrap.php.cache" >
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="Simplr Test Suite">
             <directory>../src/Cleentfaar/Simplr/Core/Tests</directory>
             <directory>../src/Cleentfaar/Simplr/Bundle/*/Tests</directory>
         </testsuite>
