@@ -33,7 +33,7 @@ class Simplr
 
     public function getInstallationLockPath()
     {
-        $path = realpath($this->container->getParameter('kernel.root_dir') . '/NOT_INSTALLED') ;
+        $path = realpath($this->container->getParameter('kernel.root_dir') . '/NOT_INSTALLED.lock') ;
         if ($path !== false) {
             return $path;
         }

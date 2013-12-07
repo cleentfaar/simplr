@@ -13,10 +13,12 @@ namespace Cleentfaar\Simplr\Bundle\CmsBundle\Command;
 
 use Cleentfaar\Simplr\Core\Simplr;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -66,6 +68,7 @@ class SimplrInstallCommand extends ContainerAwareCommand
             ->setDefinition(
                 array(
                     new InputArgument('target', InputArgument::OPTIONAL, 'Optional target directory', self::CURRENT_DIRECTORY),
+                    new InputOption('ignore-lock', null, InputOption::VALUE_OPTIONAL, 'Used during development to repeat the installation without caring about created data', true),
                 )
             )
             ->setDescription('Installs the Simplr CMS')
@@ -137,19 +140,33 @@ EOT
         $failed = true;
         $failedReasons = array();
         $env = $input->getOption('env') ? $input->getOption('env') : 'prod';
+
+        /**
+         * @var ProgressHelper $progress
+         */
+        $totalCommands = count($this->preCommands[$env]);
+        $output->writeln(sprintf('Executing %s commands to prepare installation', $totalCommands));
+        $progress = $this->getHelperSet()->get('progress');
+        $commandProgress = clone $this->getHelperSet()->get('progress');
+        $progress->start($output, $totalCommands);
         foreach ($this->preCommands[$env] as $commandNamespace => $commandArguments) {
+            /**
+             * @var ProgressHelper $commandProgress
+             */
             try {
                 $command = $this->getApplication()->find($commandNamespace);
+                $commandArguments[0] = '--quiet';
                 $commandArguments['--env'] = $env;
                 $inputArray = array_merge(array('command' => $commandNamespace), $commandArguments);
                 $commandInput = new ArrayInput($inputArray);
-              /*  foreach ($commandArguments as $k => $v) {
-                    $commandInput->setOption($k, $v);
-                }*/
                 $commandInput->setInteractive($input->isInteractive());
-                $returnCode = $command->run($commandInput, $output);
+                $nullOutput = new NullOutput();
+                $returnCode = $command->run($commandInput, $nullOutput);
+                $progress->clear();
+                $output->writeln("");
+                $output->writeln(sprintf('Successfully executed %s (returned code %s)', $commandNamespace, $returnCode));
+                $progress->display();
 
-                $output->writeln(sprintf('Successfully executed %s', $commandNamespace));
                 $failed = false;
 
                 // we have to close the connection after dropping the database so we don't get "No database selected" error
@@ -163,22 +180,12 @@ EOT
                 $output->writeln(sprintf('Failed to execute %s', $commandNamespace));
                 break;
             }
-        }
-        $output->writeln("");
-        return $this->handleResult($failed, $failedReasons, $output);
-    }
 
-    private function argumentsToString($arguments)
-    {
-        $str = '';
-        foreach ($arguments as $arg => $val) {
-            if (is_int($arg)) {
-                $str .= $val.' ';
-            } else {
-                $str .= $arg.'='.$val.' ';
-            }
+            $progress->advance();
         }
-        return $str;
+        $progress->finish();
+        $output->writeln("");
+        return $this->handleResult($failed, $failedReasons, $input, $output);
     }
 
     /**
@@ -187,20 +194,22 @@ EOT
      * @param OutputInterface $output
      * @return bool
      */
-    protected function handleResult($failed = false, array $failedReasons, OutputInterface $output) {
+    protected function handleResult($failed = false, array $failedReasons, InputInterface $input, OutputInterface $output) {
         if ($failed === false) {
-            $lockPath = $this->getContainer()->get('simplr.instance')->getInstallationLockPath();
-            if ($lockPath !== null) {
-                $filesystem = new Filesystem();
-                try {
-                    $filesystem->remove($lockPath);
-                } catch (\Exception $e) {
-                    $output->writeln(
-                        sprintf(
-                            "<error>Failed to remove lock-file, you will need to remove it manually before continuing (<comment>%s</comment>)</error>",
-                            $lockPath
-                        )
-                    );
+            if ($input->getOption('ignore-lock') !== true) {
+                $lockPath = $this->getContainer()->get('simplr.instance')->getInstallationLockPath();
+                if ($lockPath !== null) {
+                    $filesystem = new Filesystem();
+                    try {
+                        $filesystem->remove($lockPath);
+                    } catch (\Exception $e) {
+                        $output->writeln(
+                            sprintf(
+                                "<error>Failed to remove lock-file, you will need to remove it manually before continuing (<comment>%s</comment>)</error>",
+                                $lockPath
+                            )
+                        );
+                    }
                 }
             }
             $output->writeln(
