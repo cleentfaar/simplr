@@ -124,9 +124,12 @@ EOT
         foreach ($this->preCommands as $commandNamespace => $arguments) {
             try {
                 $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
-                $arguments['--process-isolation'] = true;
+                $arguments[] = '--process-isolation';
                 if ($input->getOption('no-interaction')) {
                     $arguments[] = '-n';
+                }
+                if ($input->getOption('quiet')) {
+                    $arguments[] = '-q';
                 }
                 if ($arguments['--env'] != 'prod' && in_array($commandNamespace, $this->forcedCommandsInDev)) {
                     $arguments['--force'] = true;
@@ -146,7 +149,7 @@ EOT
             }
         }
         $output->writeln("");
-        return $this->handleResult($failed, $failedReasons);
+        return $this->handleResult($failed, $failedReasons, $output);
     }
 
     /**
