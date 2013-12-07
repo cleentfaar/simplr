@@ -8,7 +8,8 @@ php:
 before_script:
   - "composer install -n"
   - "php app/console doctrine:database:create --env=test"
-  - "php app/console simplr:assets:install --symlink --env=test"
+  - "php app/console simplr:assets:install --env=test"
+  - "php app/console assetic:dump"
 
 script:
   - "phpunit -c app"
