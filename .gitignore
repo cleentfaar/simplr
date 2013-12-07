@@ -20,6 +20,12 @@
 !web/assets/plugins/.gitkeep
 /web/assets/media/cache/*
 !web/assets/media/cache/.gitkeep
+/web/css/*
+!/web/css/.gitkeep
+/web/js/*
+!/web/js/.gitkeep
+/web/fonts/*
+!/web/fonts/.gitkeep
 
 # Symfony ignores
 /web/bundles/
