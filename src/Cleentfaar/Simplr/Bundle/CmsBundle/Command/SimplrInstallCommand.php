@@ -145,27 +145,25 @@ EOT
          * @var ProgressHelper $progress
          */
         $totalCommands = count($this->preCommands[$env]);
-        $output->writeln(sprintf('Executing %s commands to prepare installation', $totalCommands));
+        $output->writeln(sprintf('Executing <comment>%s</comment> commands to prepare installation', $totalCommands));
         $progress = $this->getHelperSet()->get('progress');
-        $commandProgress = clone $this->getHelperSet()->get('progress');
         $progress->start($output, $totalCommands);
+        $progress->display();
         foreach ($this->preCommands[$env] as $commandNamespace => $commandArguments) {
             /**
              * @var ProgressHelper $commandProgress
              */
             try {
                 $command = $this->getApplication()->find($commandNamespace);
-                $commandArguments[0] = '--quiet';
                 $commandArguments['--env'] = $env;
                 $inputArray = array_merge(array('command' => $commandNamespace), $commandArguments);
                 $commandInput = new ArrayInput($inputArray);
                 $commandInput->setInteractive($input->isInteractive());
                 $nullOutput = new NullOutput();
-                $returnCode = $command->run($commandInput, $nullOutput);
                 $progress->clear();
-                $output->writeln("");
-                $output->writeln(sprintf('Successfully executed %s (returned code %s)', $commandNamespace, $returnCode));
+                $output->write(sprintf(" Executing <comment>%s</comment>                        ", $commandNamespace));
                 $progress->display();
+                $returnCode = $command->run($commandInput, $nullOutput);
 
                 $failed = false;
 
@@ -174,6 +172,7 @@ EOT
                 if ($connection->isConnected()) {
                     $connection->close();
                 }
+                $progress->advance();
             } catch (\Exception $e) {
                 $failed = true;
                 $failedReasons['Command '.$commandNamespace][] = $e->getMessage();
@@ -181,7 +180,6 @@ EOT
                 break;
             }
 
-            $progress->advance();
         }
         $progress->finish();
         $output->writeln("");
