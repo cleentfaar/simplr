@@ -36,20 +36,14 @@ class SimplrDiagnoseCommand extends ContainerAwareCommand
     {
         $this
             ->setName('simplr:diagnose')
-            ->setDefinition(
-                array(
-                    //new InputArgument('target', InputArgument::OPTIONAL, 'Optional target directory', self::CURRENT_DIRECTORY),
-                )
+            ->setDescription(
+                'Diagnoses your Simplr installation to find '.
+                'possible problems or get suggestions for improvements'
             )
-            ->setDescription('Diagnoses your Simplr installation to find possible problems or get suggestions for improvements')
             ->setHelp(
-                <<<EOT
-The <info>%command.name%</info> command diagnoses your Simplr installation,
-to find possible problems or get suggestions for improvements
-
-<info>php %command.full_name%</info>
-
-EOT
+                'The <info>%command.name%</info> command diagnoses your Simplr installation, '.
+                'to find possible problems or get suggestions for improvements '.
+                '<info>php %command.full_name%</info>'
             )
         ;
     }
@@ -101,7 +95,7 @@ EOT
         $output->writeln("----------------------------------------------------------------");
         $output->writeln("- ROUTES -------------------------------------------------------");
         $output->writeln("----------------------------------------------------------------");
-        foreach ($report->getRoutes() as $routeId => $routeObject) {
+        foreach ($report->getRoutes() as $routeObject) {
             /**
              * @var Route $routeObject
              */

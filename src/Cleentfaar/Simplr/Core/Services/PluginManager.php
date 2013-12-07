@@ -59,12 +59,16 @@ class PluginManager
                     $configuration = $this->findConfiguration($plugin);
                     if (empty($configuration)) {
                         throw new \Exception(sprintf(
-                            "No matching configuration could be found in the filesystem for the active plugin in the database (%s)",
+                            "No matching configuration could be found in the filesystem ".
+                            "for the active plugin in the database (%s)",
                             $plugin
                         ));
                     }
                     $this->activePlugins[$plugin] = $configuration;
-                    $this->activePluginOptions[$plugin] = $this->optionManager->getOptionValue('plugin_options_'.$plugin, new \stdClass());
+                    $this->activePluginOptions[$plugin] = $this->optionManager->getOptionValue(
+                        'plugin_options_'.$plugin,
+                        new \stdClass()
+                    );
                 }
             }
             $this->activePluginsFetched = true;
@@ -74,8 +78,7 @@ class PluginManager
 
     public function registerActivePlugins(EventDispatcherInterface $dispatcher)
     {
-        foreach ($this->getActivePlugins() as $plugin => $configuration)
-        {
+        foreach ($this->getActivePlugins() as $configuration) {
             if (isset($configuration['hooks'])) {
                 foreach ($configuration['hooks'] as $hook => $callable) {
                     $dispatcher->addListener($hook, $callable);

@@ -9,5 +9,5 @@ WARNING: THIS PROJECT IS STILL IN A VERY EARLY DEVELOPMENT PHASE!
 
 ## Welcome to Simplr!
 
-This document will contain information on how to download, install, and start using Simplr
+This document will contain information on how to download, install, and start using Simplr.
 Please hang on tight while fundamental ideas are still being worked out, thank you!

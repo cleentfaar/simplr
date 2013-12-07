@@ -67,8 +67,19 @@ class SimplrInstallCommand extends ContainerAwareCommand
             ->setName('simplr:install')
             ->setDefinition(
                 array(
-                    new InputArgument('target', InputArgument::OPTIONAL, 'Optional target directory', self::CURRENT_DIRECTORY),
-                    new InputOption('ignore-lock', null, InputOption::VALUE_OPTIONAL, 'Used during development to repeat the installation without caring about created data', true),
+                    new InputArgument(
+                        'target',
+                        InputArgument::OPTIONAL,
+                        'Optional target directory',
+                        self::CURRENT_DIRECTORY
+                    ),
+                    new InputOption(
+                        'ignore-lock',
+                        null,
+                        InputOption::VALUE_OPTIONAL,
+                        'Used during development to repeat the installation without caring about created data',
+                        true
+                    ),
                 )
             )
             ->setDescription('Installs the Simplr CMS')
@@ -161,16 +172,17 @@ EOT
                 $commandInput->setInteractive($input->isInteractive());
                 $nullOutput = new NullOutput();
                 $progress->clear();
-                $output->write(sprintf(" Executing <comment>%s</comment>                        ", $commandNamespace));
+                $output->write(sprintf(" Executing <comment>%s</comment>           ", $commandNamespace));
                 $progress->display();
-                $returnCode = $command->run($commandInput, $nullOutput);
+                $command->run($commandInput, $nullOutput);
 
                 $failed = false;
 
-                // we have to close the connection after dropping the database so we don't get "No database selected" error
-                $connection = $this->getContainer()->get('kernel')->getContainer()->get('doctrine')->getConnection();
-                if ($connection->isConnected()) {
-                    $connection->close();
+                if (substr($commandNamespace, 0, 9) == 'doctrine:') {
+                    $connection = $this->getContainer()->get('doctrine')->getConnection();
+                    if ($connection->isConnected()) {
+                        $connection->close();
+                    }
                 }
                 $progress->advance();
             } catch (\Exception $e) {
@@ -192,7 +204,8 @@ EOT
      * @param OutputInterface $output
      * @return bool
      */
-    protected function handleResult($failed = false, array $failedReasons, InputInterface $input, OutputInterface $output) {
+    protected function handleResult($failed, array $failedReasons, InputInterface $input, OutputInterface $output)
+    {
         if ($failed === false) {
             if ($input->getOption('ignore-lock') !== true) {
                 $lockPath = $this->getContainer()->get('simplr.instance')->getInstallationLockPath();
@@ -203,7 +216,8 @@ EOT
                     } catch (\Exception $e) {
                         $output->writeln(
                             sprintf(
-                                "<error>Failed to remove lock-file, you will need to remove it manually before continuing (<comment>%s</comment>)</error>",
+                                "<error>Failed to remove lock-file, you will need to remove it manually ".
+                                "before continuing (<comment>%s</comment>)</error>",
                                 $lockPath
                             )
                         );

@@ -26,8 +26,12 @@ class ControllerListener
      */
     private $pluginManager;
 
-    public function __construct(EventDispatcherInterface $dispatcher, Simplr $simplr, ThemeManager $themeManager, PluginManager $pluginManager)
-    {
+    public function __construct(
+        EventDispatcherInterface $dispatcher,
+        Simplr $simplr,
+        ThemeManager $themeManager,
+        PluginManager $pluginManager
+    ) {
         $this->dispatcher = $dispatcher;
         $this->simplr = $simplr;
         $this->pluginManager = $pluginManager;
