@@ -11,12 +11,13 @@
 
 namespace Cleentfaar\Simplr\Bundle\CmsBundle\Tests\Controller\Backend;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Cleentfaar\Simplr\Bundle\CmsBundle\Test\FunctionalTest;
 
-class DashboardControllerTest extends WebTestCase
+class DashboardControllerTest extends FunctionalTest
 {
     public function testIndex()
     {
+        $this->loadDefaultFixtures();
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/admin/dashboard');

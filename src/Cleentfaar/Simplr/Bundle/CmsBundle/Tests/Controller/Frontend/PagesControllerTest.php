@@ -9,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Simplr\Bundle\CmsBundle\Tests\Controller\Backend;
+namespace Cleentfaar\Simplr\Bundle\CmsBundle\Tests\Controller\Frontend;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Cleentfaar\Simplr\Bundle\CmsBundle\Test\FunctionalTest;
 
-class PagesControllerTest extends WebTestCase
+class PagesControllerTest extends FunctionalTest
 {
     public function testIndex()
     {
+        $this->loadDefaultFixtures();
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/');
