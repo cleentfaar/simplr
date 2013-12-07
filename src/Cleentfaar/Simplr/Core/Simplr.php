@@ -13,8 +13,31 @@ namespace Cleentfaar\Simplr\Core;
 
 class Simplr
 {
+    /**
+     * @var string
+     */
+    private $pathToWeb;
+
+    public function __construct($pathToWeb)
+    {
+        if (!is_dir($pathToWeb)) {
+            throw new \Exception(sprintf("Path provided for the web directory does not exist (%s)", $pathToWeb));
+        }
+        $this->pathToWeb = $pathToWeb;
+    }
+
     public function isInstalled()
     {
-        return true;
+        $installationLockPath = $this->getInstallationLockPath();
+        return $installationLockPath === null ? true : false;
+    }
+
+    public function getInstallationLockPath()
+    {
+        $path = realpath($this->pathToWeb . '/NOT_INSTALLED') ;
+        if ($path !== false) {
+            return $path;
+        }
+        return null;
     }
 }

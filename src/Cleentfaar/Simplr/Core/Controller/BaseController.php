@@ -11,6 +11,7 @@
 
 namespace Cleentfaar\Simplr\Core\Controller;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 abstract class BaseController extends Controller
@@ -29,7 +30,7 @@ abstract class BaseController extends Controller
     /**
      * Lookup an entity or throw a HttpNotFound exception
      *
-     * (inspired by [private bundle])
+     * (inspired by [private bundle, sorry!])
      *
      * @param string|\Doctrine\ORM\EntityRepository|object $entity
      * @param array $criterias
@@ -41,6 +42,9 @@ abstract class BaseController extends Controller
         $result = null;
 
         if (is_string($entity)) {
+            /**
+             * @var EntityRepository $repository
+             */
             $repository = $this->getDoctrine()->getManager()->getRepository($entity);
         } else {
             throw new \InvalidArgumentException("Must supply a classname (string)");

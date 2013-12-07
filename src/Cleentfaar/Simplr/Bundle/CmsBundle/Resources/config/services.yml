@@ -3,6 +3,8 @@ parameters:
     simplr.twig.cms_extension.class: Cleentfaar\Simplr\Bundle\CmsBundle\Twig\CmsExtension
     simplr.controller_listener.class: Cleentfaar\Simplr\Bundle\CmsBundle\EventListener\ControllerListener
     simplr.instance.class: Cleentfaar\Simplr\Core\Simplr
+    simplr.doctor.class: Cleentfaar\Simplr\Core\Debug\Doctor
+    simplr.entity.page.class: Cleentfaar\Simplr\Core\Entity\Page
     simplr.backend.menu.item.class: Knp\Menu\MenuItem
     simplr.optionmanager.class: Cleentfaar\Simplr\Core\Services\OptionManager
     simplr.pluginmanager.class: Cleentfaar\Simplr\Core\Services\PluginManager
@@ -11,6 +13,15 @@ parameters:
 services:
     simplr.instance:
         class: %simplr.instance.class%
+        arguments: [%kernel.root_dir%/../web]
+    simplr.doctor:
+        class: %simplr.doctor.class%
+        arguments: [@service_container]
+    simplr.repository.page:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine # this is an instance of Registry
+        factory_method: getRepository
+        arguments: [ %simplr.entity.page.class% ]
     simplr.optionmanager:
         class: %simplr.optionmanager.class%
         arguments: [@doctrine.orm.entity_manager]
