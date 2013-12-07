@@ -194,5 +194,4 @@ class MenuBuilder
         $this->dispatcher->dispatch(CmsEvents::GET_BACKEND_SIDEBAR_MENU, $event);
         return $event->getMenu();
     }
-
 }
