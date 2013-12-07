@@ -21,6 +21,6 @@ class DashboardControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/dashboard');
 
-        $this->assertTrue($crawler->filter('html:contains("Welcome")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Overview")')->count() > 0);
     }
 }
