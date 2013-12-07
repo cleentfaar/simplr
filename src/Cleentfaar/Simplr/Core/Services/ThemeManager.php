@@ -95,6 +95,18 @@ class ThemeManager
     /**
      * @return null|string
      */
+    public function getActiveThemePath()
+    {
+        $activeTheme = $this->getActiveTheme();
+        if ($activeTheme !== null) {
+            return $this->getPathToTheme($activeTheme);
+        }
+        return null;
+    }
+
+    /**
+     * @return null|string
+     */
     public function getActiveThemeViewsPath()
     {
         $activeTheme = $this->getActiveTheme();

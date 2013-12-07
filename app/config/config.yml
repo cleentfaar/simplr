@@ -60,10 +60,6 @@ braincrafted_bootstrap:
         twig: false
         knp_menu: true
         knp_paginator: true
-    #customize:
-    #    variables_file: ~
-    #    bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
-    #    bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig
 
 # Doctrine Configuration
 doctrine:
@@ -78,17 +74,49 @@ doctrine:
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
         # path:     "%database_path%"
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-        mappings:
-            Simplr:
-                type: annotation
-                is_bundle: false
-                dir: %kernel.root_dir%/../src/Cleentfaar/Simplr/Core/Entity
-                prefix: Cleentfaar\Simplr\Core\Entity
-                alias: Simplr
+        entity_managers:
+            default:
+                auto_mapping: true
+                mappings:
+                    Simplr:
+                        type: annotation
+                        is_bundle: false
+                        dir: %kernel.root_dir%/../src/Cleentfaar/Simplr/Core/Entity
+                        prefix: Cleentfaar\Simplr\Core\Entity
+                        alias: Simplr
+                    gedmo_translatable:
+                        type: annotation
+                        prefix: Gedmo\Translatable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                        alias: GedmoTranslatable # this one is optional and will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_translator:
+                        type: annotation
+                        prefix: Gedmo\Translator\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                        alias: GedmoTranslator # this one is optional and will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_loggable:
+                        type: annotation
+                        prefix: Gedmo\Loggable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                        alias: GedmoLoggable # this one is optional and will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_tree:
+                        type: annotation
+                        prefix: Gedmo\Tree\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                        alias: GedmoTree # this one is optional and will default to the name set for the mapping
+                        is_bundle: false
+
+stof_doctrine_extensions:
+    default_locale: %locale%
+    orm:
+        default:
+            tree: true
+            sluggable: true # not needed: listeners are not enabled by default
 
 # Table prefix set-up
 cleentfaar_doctrine_table_prefix:

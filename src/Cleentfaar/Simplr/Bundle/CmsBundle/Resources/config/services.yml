@@ -1,7 +1,8 @@
 parameters:
     simplr.backend.menu.builder.class: Cleentfaar\Simplr\Bundle\CmsBundle\Menu\Backend\MenuBuilder
-    simplr.backend.menu.item.class: Knp\Menu\MenuItem
+    simplr.twig.cms_extension.class: Cleentfaar\Simplr\Bundle\CmsBundle\Twig\CmsExtension
     simplr.controller_listener.class: Cleentfaar\Simplr\Bundle\CmsBundle\EventListener\ControllerListener
+    simplr.backend.menu.item.class: Knp\Menu\MenuItem
     simplr.optionmanager.class: Cleentfaar\Simplr\Core\Services\OptionManager
     simplr.pluginmanager.class: Cleentfaar\Simplr\Core\Services\PluginManager
     simplr.thememanager.class: Cleentfaar\Simplr\Core\Services\ThemeManager
@@ -40,3 +41,8 @@ services:
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: simplr.backend.menu.sidebar } # The alias is what is used to retrieve the menu
+    simplr.twig.cms_extension:
+        class: %simplr.twig.cms_extension.class%
+        arguments: [@service_container, @twig.loader.filesystem]
+        tags:
+            - { name: twig.extension }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Simplr\Bundle\CmsBundle\Controller\Pages;
+namespace Cleentfaar\Simplr\Bundle\CmsBundle\Controller\Frontend;
 
 use Cleentfaar\Simplr\Core\Controller\BaseController;
 
@@ -17,6 +17,11 @@ class PagesController extends BaseController
 {
     public function indexAction($slug)
     {
-        return $this->render('CleentfaarSimplrCmsBundle:Frontend/Pages:index.html.twig');
+        $page = $this->findByOr404('Simplr:Page', array('slug' => $slug), true);
+
+        return $this->render(
+            '@current_theme/'.$page->getTemplate(),
+            array('page' => $page)
+        );
     }
 }
