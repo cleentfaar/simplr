@@ -9,6 +9,7 @@
 /app/Resources/plugins/*
 !app/Resources/plugins/.gitkeep
 /app/Resources/themes/*
+!app/Resources/themes/alpha
 !app/Resources/themes/.gitkeep
 /app/Resources/uploads/*
 !app/Resources/uploads/.gitkeep
