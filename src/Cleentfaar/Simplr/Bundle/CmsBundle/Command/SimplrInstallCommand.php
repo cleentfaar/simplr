@@ -130,7 +130,7 @@ EOT
                     $arguments['--quiet'] = true;
                 }
                 $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
-                $arguments['--process-isolation'] = true;
+                $arguments[] = '--process-isolation';
                 if ($arguments['--env'] != 'prod' && in_array($commandNamespace, $this->forcedCommandsInDev)) {
                     $arguments['--force'] = true;
                 }
