@@ -32,7 +32,12 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "knplabs/knp-menu-bundle": "dev-master",
+        "cleentfaar/doctrine-table-prefix-bundle": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "liip/functional-test-bundle": "dev-master",
+        "liip/imagine-bundle": "dev-master",
+        "knplabs/knp-menu": "~2.0@alpha",
+        "knplabs/knp-menu-bundle": "~2.0@alpha",
         "braincrafted/bootstrap-bundle": "~2.0@alpha",
         "twbs/bootstrap": "~3.0",
         "jquery/jquery":  "~1.10"
@@ -65,6 +70,5 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
