@@ -19,7 +19,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 
 class SimplrInstallCommand extends ContainerAwareCommand
 {
@@ -32,6 +31,9 @@ class SimplrInstallCommand extends ContainerAwareCommand
         'doctrine:fixtures:load' => array(),
         'simplr:assets:install' => array(),
         'assetic:dump' => array(),
+    );
+    protected $forcedCommandsInDev = array(
+        'doctrine:schema:update'
     );
 
     /**
@@ -111,8 +113,11 @@ EOT
         foreach ($this->preCommands as $commandNamespace => $arguments) {
             try {
                 $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
-                if (!$input->isInteractive()) {
+                if ($input->getOption('no-interaction')) {
                     $arguments[] = '-n';
+                }
+                if ($arguments['--env'] != 'prod' && in_array($commandNamespace, $this->forcedCommandsInDev)) {
+                    $arguments['--force'] = true;
                 }
                 $command = $this->getApplication()->find($commandNamespace);
                 $commandInput = new ArrayInput($arguments);
