@@ -76,9 +76,8 @@ class SimplrInstallCommand extends ContainerAwareCommand
                     new InputOption(
                         'ignore-lock',
                         null,
-                        InputOption::VALUE_OPTIONAL,
-                        'Used during development to repeat the installation without caring about created data',
-                        true
+                        InputOption::VALUE_NONE,
+                        'Used during development to repeat the installation without caring about created data'
                     ),
                 )
             )
@@ -142,6 +141,8 @@ EOT
     }
 
     /**
+     * @todo Find out why we need to use NullOutput to prevent output from subcommands,
+     *       even though the --quiet argument is passed}</p>
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return bool
@@ -156,7 +157,7 @@ EOT
          * @var ProgressHelper $progress
          */
         $totalCommands = count($this->preCommands[$env]);
-        $output->writeln(sprintf('Executing <comment>%s</comment> commands to prepare installation', $totalCommands));
+        $output->writeln(sprintf('Executing <comment>%s</comment> commands to complete installation', $totalCommands));
         $progress = $this->getHelperSet()->get('progress');
         $progress->start($output, $totalCommands);
         $progress->display();
@@ -166,6 +167,7 @@ EOT
              */
             try {
                 $command = $this->getApplication()->find($commandNamespace);
+                $commandArguments['--quiet'] = true;
                 $commandArguments['--env'] = $env;
                 $inputArray = array_merge(array('command' => $commandNamespace), $commandArguments);
                 $commandInput = new ArrayInput($inputArray);
@@ -193,8 +195,11 @@ EOT
             }
 
         }
+        $progress->clear();
+        $output->write("                                ");
+        $progress->display();
+        $progress->clear();
         $progress->finish();
-        $output->writeln("");
         return $this->handleResult($failed, $failedReasons, $input, $output);
     }
 

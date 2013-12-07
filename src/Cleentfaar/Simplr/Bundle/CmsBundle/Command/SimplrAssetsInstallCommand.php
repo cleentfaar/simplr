@@ -76,6 +76,43 @@ EOT
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @throws \InvalidArgumentException When the target directory does not exist or symlink cannot be used
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $targetArg = rtrim($input->getArgument('target'), '/');
+
+        if (!is_dir($targetArg)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The target directory "%s" does not exist.',
+                    $input->getArgument('target')
+                )
+            );
+        }
+
+        if (!function_exists('symlink') && $input->getOption('symlink')) {
+            throw new \InvalidArgumentException(
+                'The symlink() function is not available on your system.'.
+                'You need to install the assets without the --symlink option.'
+            );
+        }
+
+        $output->writeln(
+            sprintf(
+                "Installing assets using the <comment>%s</comment> option",
+                $input->getOption('symlink') ? 'symlink' : 'hard copy'
+            )
+        );
+
+        $this->installThemeAssets($targetArg, $input, $output);
+        $this->installPluginAssets($targetArg, $input, $output);
+
+    }
+
+    /**
      * @param $dir
      * @param InputInterface $input
      * @param OutputInterface $output
@@ -175,42 +212,5 @@ EOT
             $output->writeln('Installing assets for plugins... no plugins found!');
         }
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \InvalidArgumentException When the target directory does not exist or symlink cannot be used
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $targetArg = rtrim($input->getArgument('target'), '/');
-
-        if (!is_dir($targetArg)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'The target directory "%s" does not exist.',
-                    $input->getArgument('target')
-                )
-            );
-        }
-
-        if (!function_exists('symlink') && $input->getOption('symlink')) {
-            throw new \InvalidArgumentException(
-                'The symlink() function is not available on your system.'.
-                'You need to install the assets without the --symlink option.'
-            );
-        }
-
-        $output->writeln(
-            sprintf(
-                "Installing assets using the <comment>%s</comment> option",
-                $input->getOption('symlink') ? 'symlink' : 'hard copy'
-            )
-        );
-
-        $this->installThemeAssets($targetArg, $input, $output);
-        $this->installPluginAssets($targetArg, $input, $output);
-
     }
 }
