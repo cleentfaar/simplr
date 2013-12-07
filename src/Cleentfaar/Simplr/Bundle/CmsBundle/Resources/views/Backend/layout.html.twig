@@ -11,19 +11,19 @@
         <!-- Bootstrap core CSS -->
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 
-        {% stylesheets filter="cssrewrite" output="styles.min.css"
+        {% stylesheets filter="cssrewrite" output="css/styles.min.css"
             '@CleentfaarSimplrCmsBundle/Resources/assets/backend/less/styles.less'
         %}
         <link href="{{ asset_url }}" rel="stylesheet">
         {% endstylesheets %}
 
         <style>
-            {% stylesheets filter="cssrewrite" output="font-awesome.min.css"
+            {% stylesheets filter="cssrewrite" output="css/font-awesome.min.css"
                 '@CleentfaarSimplrCmsBundle/Resources/assets/backend/css/font-awesome.css'
             %}
             @import url({{ asset_url|raw }});
             {% endstylesheets %}
-            {% stylesheets filter="cssrewrite" output="fonts.min.css"
+            {% stylesheets filter="cssrewrite" output="css/fonts.min.css"
                 '@CleentfaarSimplrCmsBundle/Resources/assets/backend/less/fonts.less'
             %}
             @import url({{ asset_url|raw }});
