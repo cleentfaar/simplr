@@ -1,4 +1,4 @@
-/* 
+/*
 Author: Cas Leentfaar - http://github.com/cleentfaar
 'Nova' HTML Template by Cas Leentfaar
 
@@ -127,9 +127,20 @@ h2,
 h3,
 h4,
 h5,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
 .navbar-brand {
-  font-family: 'lobster_tworegular';
+  font-family: 'ubunturegular';
 }
 .navbar-brand {
   font-size: 28px;
+}
+.navbar-inverse .navbar-brand {
+  color: #FFFFFF;
+}
+i[class*="fa-2x"] {
+  margin-right: 5px;
 }

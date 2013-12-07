@@ -10,16 +10,25 @@
     {% block stylesheets %}
         <!-- Bootstrap core CSS -->
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/cleentfaarsimplrcms/backend/css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/cleentfaarsimplrcms/backend/css/fonts.css') }}" rel="stylesheet">
 
-        {% stylesheets
-            '@CleentfaarSimplrCmsBundle/Resources/public/backend/css/styles.less'
-            filter='cssrewrite'
+        {% stylesheets filter="cssrewrite" output="styles.min.css"
+            '@CleentfaarSimplrCmsBundle/Resources/assets/backend/less/styles.less'
         %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
+        <link href="{{ asset_url }}" rel="stylesheet">
         {% endstylesheets %}
 
+        <style>
+            {% stylesheets filter="cssrewrite" output="font-awesome.min.css"
+                '@CleentfaarSimplrCmsBundle/Resources/assets/backend/css/font-awesome.css'
+            %}
+            @import url({{ asset_url|raw }});
+            {% endstylesheets %}
+            {% stylesheets filter="cssrewrite" output="fonts.min.css"
+                '@CleentfaarSimplrCmsBundle/Resources/assets/backend/less/fonts.less'
+            %}
+            @import url({{ asset_url|raw }});
+            {% endstylesheets %}
+        </style>
         <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
         {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
     {% endblock %}
