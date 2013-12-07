@@ -12,6 +12,7 @@
 namespace Cleentfaar\Simplr\Bundle\CmsBundle\Menu\Backend;
 
 use Cleentfaar\Simplr\Bundle\CmsBundle\CmsEvents;
+use Cleentfaar\Simplr\Bundle\CmsBundle\Event\GetMenuEvent;
 use Cleentfaar\Simplr\Bundle\CmsBundle\Event\MenuBuildingEvent;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
@@ -190,7 +191,7 @@ class MenuBuilder
         );
         */
 
-        $event = new MenuBuildingEvent($menu);
+        $event = new GetMenuEvent($menu);
         $this->dispatcher->dispatch(CmsEvents::GET_BACKEND_SIDEBAR_MENU, $event);
         return $event->getMenu();
     }

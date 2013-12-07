@@ -70,7 +70,12 @@ class ThemeManager
     {
         $activeTheme = $this->getActiveTheme();
         if ($activeTheme !== null) {
-            $this->getActiveThemeObject()->register($dispatcher);
+            $config = $this->getActiveThemeConfig();
+            if (isset($config['hooks'])) {
+                foreach ($config['hooks'] as $hook => $callable) {
+                    $dispatcher->addListener($hook, $callable);
+                }
+            }
         }
     }
 
@@ -148,20 +153,15 @@ class ThemeManager
         if ($this->activeThemeFetched === false) {
             $activeThemeDb = $this->optionManager->getOptionValue('active_theme', null);
             if ($activeThemeDb !== null) {
-                $activeTheme = $this->getTheme($activeThemeDb);
-                if ($activeTheme === null) {
+                $configuration = $this->findConfiguration($activeThemeDb);
+                if (empty($configuration)) {
                     throw new \Exception(sprintf(
-                        "No matching object could be found in the filesystem for the active theme in the database (%s)",
+                        "No matching configuration could be found in the filesystem for the active theme in the database (%s)",
                         $activeThemeDb
                     ));
                 }
-                $activeThemeConfig = array_merge(
-                    $this->getDefaultThemeConfiguration(),
-                    $activeTheme->getConfiguration()
-                );
                 $this->activeTheme = $activeThemeDb;
-                $this->activeThemeObject = $activeTheme;
-                $this->activeThemeConfig = $activeThemeConfig;
+                $this->activeThemeConfig = $configuration;
                 $this->activeThemeOptions = $this->optionManager->getOptionValue('theme_options_'.$activeThemeDb, new \stdClass());
             } else {
                 throw new \Exception("No active theme was defined, this should never happen!");
@@ -173,20 +173,21 @@ class ThemeManager
 
     /**
      * @param $name
-     * @return Pluggable|null
+     * @return array
      */
-    public function getTheme($name)
+    public function findConfiguration($name)
     {
-        $namespace = "Simplr\\Themes\\$name\\Theme";
-        $classPath = $this->pathToThemes . "/" . $name . "/Theme.php";
-        if (!file_exists($classPath)) {
-            return null;
+        $attempt = $this->pathToThemes . '/' . $name . '/theme.php';
+        if (!file_exists($attempt)) {
+            return array();
         }
-        require_once $classPath;
-        if (class_exists($namespace)) {
-            return new $namespace;
+        ob_start();
+        $configuration = include($attempt);
+        ob_end_clean();
+        if (!is_array($configuration)) {
+            return array();
         }
-        return null;
+        return $configuration;
     }
 
     /**

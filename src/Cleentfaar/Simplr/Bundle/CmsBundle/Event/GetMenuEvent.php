@@ -14,7 +14,7 @@ namespace Cleentfaar\Simplr\Bundle\CmsBundle\Event;
 use Knp\Menu\MenuItem;
 use Symfony\Component\EventDispatcher\Event;
 
-class MenuBuildingEvent extends Event
+class GetMenuEvent extends Event
 {
 
     /**
