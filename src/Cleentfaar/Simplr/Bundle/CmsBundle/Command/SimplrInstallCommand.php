@@ -37,6 +37,11 @@ class SimplrInstallCommand extends ContainerAwareCommand
     );
 
     /**
+     * @var string
+     */
+    protected $targetPath;
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -81,11 +86,12 @@ EOT
                 )
             );
         }
+        $this->targetPath = $targetPath;
 
         $output->writeln(
             sprintf(
                 "Installing the Simplr CMS into <comment>%s</comment>",
-                $targetPath
+                $this->targetPath
             )
         );
 
@@ -103,16 +109,22 @@ EOT
             );
         }
 
-        return $this->installSimplr($targetPath, $input, $output);
+        return $this->installSimplr($input, $output);
     }
 
-    protected function installSimplr($targetPath, InputInterface $input, OutputInterface $output)
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return bool
+     */
+    protected function installSimplr(InputInterface $input, OutputInterface $output)
     {
         $failed = true;
         $failedReasons = array();
         foreach ($this->preCommands as $commandNamespace => $arguments) {
             try {
                 $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
+                $arguments['--process-isolation'] = true;
                 if ($input->getOption('no-interaction')) {
                     $arguments[] = '-n';
                 }
@@ -134,6 +146,16 @@ EOT
             }
         }
         $output->writeln("");
+        return $this->handleResult($failed, $failedReasons);
+    }
+
+    /**
+     * @param bool $failed
+     * @param array $failedReasons
+     * @param OutputInterface $output
+     * @return bool
+     */
+    protected function handleResult($failed = false, array $failedReasons, OutputInterface $output) {
         if ($failed === false) {
             $lockPath = $this->getContainer()->get('simplr.instance')->getInstallationLockPath();
             if ($lockPath !== null) {
@@ -152,7 +174,7 @@ EOT
             $output->writeln(
                 sprintf(
                     "Congratulations! Simplr was installed successfully into <comment>%s</comment>",
-                    $targetPath
+                    $this->targetPath
                 )
             );
             return true;
@@ -163,7 +185,7 @@ EOT
                 foreach ($failedReasons as $subject => $reasons) {
                     $output->writeln(sprintf("\t<error>%s:</error>", $subject));
                     foreach ($reasons as $reason) {
-                       $output->writeln(sprintf("\t\t<error>- %s</error>", $reason));
+                        $output->writeln(sprintf("\t\t<error>- %s</error>", $reason));
                     }
                 }
             }
