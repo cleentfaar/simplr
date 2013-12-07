@@ -88,8 +88,8 @@ EOT
         $assetsDir = $dir.'/assets/themes/';
         $this->filesystem->mkdir($assetsDir, 0777);
         $activeTheme = $this->getContainer()->get('simplr.thememanager')->getActiveTheme();
-        $activeThemePath = $this->getContainer()->get('simplr.thememanager')->getActiveThemePath();
-        if ($activeThemePath !== null) {
+        if ($activeTheme !== null) {
+            $activeThemePath = $this->getContainer()->get('simplr.thememanager')->getPathToTheme($activeTheme);
             $assetsPath = $activeThemePath . '/Resources/public';
             if (is_dir($originDir = $assetsPath)) {
                 $targetDir  = $assetsDir.strtolower($activeTheme);
@@ -142,8 +142,9 @@ EOT
 
         $plugins = $this->getContainer()->get('simplr.pluginmanager')->getActivePlugins();
         if (!empty($plugins)) {
-            foreach ($plugins as $name => $pluginObject) {
-                if (is_dir($originDir = $pluginObject->getAssetsPath())) {
+            foreach ($plugins as $name => $configuration) {
+                $activePluginPath = $this->getContainer()->get('simplr.pluginmanager')->getPathToPlugin($name);
+                if (is_dir($originDir = $activePluginPath . '/Resources/public')) {
                     $targetDir  = $assetsDir.strtolower($name);
 
                     $output->writeln(
@@ -208,8 +209,8 @@ EOT
             )
         );
 
-        //$this->installPluginAssets($targetArg, $input, $output);
         $this->installThemeAssets($targetArg, $input, $output);
+        $this->installPluginAssets($targetArg, $input, $output);
 
     }
 }
