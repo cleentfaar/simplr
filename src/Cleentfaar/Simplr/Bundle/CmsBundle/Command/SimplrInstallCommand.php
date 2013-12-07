@@ -26,14 +26,26 @@ class SimplrInstallCommand extends ContainerAwareCommand
     const CURRENT_DIRECTORY = 'current directory';
 
     protected $preCommands = array(
-        'doctrine:database:create' => array(),
-        'doctrine:schema:update' => array(),
-        'doctrine:fixtures:load' => array(),
-        'simplr:assets:install' => array(),
-        'assetic:dump' => array(),
-    );
-    protected $forcedCommandsInDev = array(
-        'doctrine:schema:update'
+        'test' => array(
+            'doctrine:database:create' => array(),
+            'doctrine:fixtures:load' => array(),
+            'simplr:assets:install' => array(),
+            'assetic:dump' => array(),
+        ),
+        'dev' => array(
+            'doctrine:database:drop' => array(),
+            'doctrine:database:create' => array(),
+            'doctrine:fixtures:load' => array(),
+            'simplr:assets:install' => array(),
+            'assetic:dump' => array(),
+        ),
+        'prod' => array(
+            'doctrine:database:create' => array(),
+            'doctrine:schema:update' => array(),
+            'doctrine:fixtures:load' => array('--append'),
+            'simplr:assets:install' => array(),
+            'assetic:dump' => array(),
+        ),
     );
 
     /**
@@ -121,26 +133,28 @@ EOT
     {
         $failed = true;
         $failedReasons = array();
-        foreach ($this->preCommands as $commandNamespace => $arguments) {
+        $env = $input->getOption('env') ? $input->getOption('env') : 'prod';
+        foreach ($this->preCommands[$env] as $commandNamespace => $commandArguments) {
             try {
-                if ($input->getOption('no-interaction')) {
-                    $arguments['--no-interaction'] = true;
-                }
-                if ($input->getOption('quiet')) {
-                    $arguments['--quiet'] = true;
-                }
-                $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
-                $arguments[] = '--process-isolation';
-                if ($arguments['--env'] != 'prod' && in_array($commandNamespace, $this->forcedCommandsInDev)) {
-                    $arguments['--force'] = true;
-                }
+                $arguments = array();
+                $arguments['--env'] = $env;
+                $argumentsString = $this->argumentsToString($arguments);
                 $command = $this->getApplication()->find($commandNamespace);
-                $commandInput = new ArrayInput($arguments);
+                $commandInput = $input;
+                foreach ($commandArguments as $k => $v) {
+                    $commandInput->setOption($k, $v);
+                }
 
                 $returnCode = $command->run($commandInput, $output);
 
-                $output->writeln(sprintf('Successfully executed %s', $commandNamespace));
+                $output->writeln(sprintf('Successfully executed %s (returned %s), with arguments: %s', $commandNamespace, $returnCode, $argumentsString));
                 $failed = false;
+
+                // we have to close the connection after dropping the database so we don't get "No database selected" error
+                $connection = $this->getContainer()->get('kernel')->getContainer()->get('doctrine')->getConnection();
+                if ($connection->isConnected()) {
+                    $connection->close();
+                }
             } catch (\Exception $e) {
                 $failed = true;
                 $failedReasons['Command '.$commandNamespace][] = $e->getMessage();
@@ -150,6 +164,19 @@ EOT
         }
         $output->writeln("");
         return $this->handleResult($failed, $failedReasons, $output);
+    }
+
+    private function argumentsToString($arguments)
+    {
+        $str = '';
+        foreach ($arguments as $arg => $val) {
+            if (is_int($arg)) {
+                $str .= $val.' ';
+            } else {
+                $str .= $arg.'='.$val.' ';
+            }
+        }
+        return $str;
     }
 
     /**
@@ -186,9 +213,9 @@ EOT
             if (!empty($failedReasons)) {
                 $output->writeln("<error>Reasons:</error>");
                 foreach ($failedReasons as $subject => $reasons) {
-                    $output->writeln(sprintf("\t<error>%s:</error>", $subject));
+                    $output->writeln(sprintf("\t%s:", $subject));
                     foreach ($reasons as $reason) {
-                        $output->writeln(sprintf("\t\t<error>- %s</error>", $reason));
+                        $output->writeln(sprintf("\t\t- %s", $reason));
                     }
                 }
             }

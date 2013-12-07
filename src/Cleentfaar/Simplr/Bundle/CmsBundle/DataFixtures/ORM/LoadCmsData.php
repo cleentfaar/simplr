@@ -44,5 +44,6 @@ class LoadCmsData implements FixtureInterface
         $manager->persist($page);
 
         $manager->flush();
+
     }
 }
