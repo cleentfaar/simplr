@@ -13,7 +13,7 @@ parameters:
 services:
     simplr.instance:
         class: %simplr.instance.class%
-        arguments: [%kernel.root_dir%/../web]
+        arguments: [@service_container]
     simplr.doctor:
         class: %simplr.doctor.class%
         arguments: [@service_container]

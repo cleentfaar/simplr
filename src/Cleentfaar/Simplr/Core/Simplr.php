@@ -11,19 +11,18 @@
 
 namespace Cleentfaar\Simplr\Core;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 class Simplr
 {
     /**
-     * @var string
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    private $pathToWeb;
+    private $container;
 
-    public function __construct($pathToWeb)
+    public function __construct(ContainerInterface $container)
     {
-        if (!is_dir($pathToWeb)) {
-            throw new \Exception(sprintf("Path provided for the web directory does not exist (%s)", $pathToWeb));
-        }
-        $this->pathToWeb = $pathToWeb;
+        $this->container = $container;
     }
 
     public function isInstalled()
@@ -34,7 +33,7 @@ class Simplr
 
     public function getInstallationLockPath()
     {
-        $path = realpath($this->pathToWeb . '/NOT_INSTALLED') ;
+        $path = realpath($this->container->getParameter('kernel.root_dir') . '/NOT_INSTALLED') ;
         if ($path !== false) {
             return $path;
         }

@@ -27,14 +27,17 @@ class SimplrInstallCommand extends ContainerAwareCommand
 
     protected $preCommands = array(
         'test' => array(
+            'doctrine:database:drop' => array('--force' => true),
             'doctrine:database:create' => array(),
+            'doctrine:schema:create' => array(),
             'doctrine:fixtures:load' => array(),
             'simplr:assets:install' => array(),
             'assetic:dump' => array(),
         ),
         'dev' => array(
-            'doctrine:database:drop' => array(),
+            'doctrine:database:drop' => array('--force' => true),
             'doctrine:database:create' => array(),
+            'doctrine:schema:create' => array(),
             'doctrine:fixtures:load' => array(),
             'simplr:assets:install' => array(),
             'assetic:dump' => array(),
@@ -42,7 +45,7 @@ class SimplrInstallCommand extends ContainerAwareCommand
         'prod' => array(
             'doctrine:database:create' => array(),
             'doctrine:schema:update' => array(),
-            'doctrine:fixtures:load' => array('--append'),
+            'doctrine:fixtures:load' => array(),
             'simplr:assets:install' => array(),
             'assetic:dump' => array(),
         ),
@@ -136,18 +139,17 @@ EOT
         $env = $input->getOption('env') ? $input->getOption('env') : 'prod';
         foreach ($this->preCommands[$env] as $commandNamespace => $commandArguments) {
             try {
-                $arguments = array();
-                $arguments['--env'] = $env;
-                $argumentsString = $this->argumentsToString($arguments);
                 $command = $this->getApplication()->find($commandNamespace);
-                $commandInput = $input;
-                foreach ($commandArguments as $k => $v) {
+                $commandArguments['--env'] = $env;
+                $inputArray = array_merge(array('command' => $commandNamespace), $commandArguments);
+                $commandInput = new ArrayInput($inputArray);
+              /*  foreach ($commandArguments as $k => $v) {
                     $commandInput->setOption($k, $v);
-                }
-
+                }*/
+                $commandInput->setInteractive($input->isInteractive());
                 $returnCode = $command->run($commandInput, $output);
 
-                $output->writeln(sprintf('Successfully executed %s (returned %s), with arguments: %s', $commandNamespace, $returnCode, $argumentsString));
+                $output->writeln(sprintf('Successfully executed %s', $commandNamespace));
                 $failed = false;
 
                 // we have to close the connection after dropping the database so we don't get "No database selected" error
