@@ -123,14 +123,14 @@ EOT
         $failedReasons = array();
         foreach ($this->preCommands as $commandNamespace => $arguments) {
             try {
-                $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
-                $arguments[] = '--process-isolation';
                 if ($input->getOption('no-interaction')) {
-                    $arguments[] = '-n';
+                    $arguments['--no-interaction'] = true;
                 }
                 if ($input->getOption('quiet')) {
-                    $arguments[] = '-q';
+                    $arguments['--quiet'] = true;
                 }
+                $arguments['--env'] = $input->getOption('env') ? $input->getOption('env') : 'prod';
+                $arguments['--process-isolation'] = true;
                 if ($arguments['--env'] != 'prod' && in_array($commandNamespace, $this->forcedCommandsInDev)) {
                     $arguments['--force'] = true;
                 }

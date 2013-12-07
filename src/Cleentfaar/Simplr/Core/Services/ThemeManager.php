@@ -11,8 +11,6 @@
 
 namespace Cleentfaar\Simplr\Core\Services;
 
-use Cleentfaar\Simplr\Core\BaseTheme;
-use Cleentfaar\Simplr\Core\Pluggable;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ThemeManager
@@ -27,11 +25,6 @@ class ThemeManager
      * @var array|null
      */
     private $activeThemeOptions;
-
-    /**
-     * @var BaseTheme|null
-     */
-    private $activeThemeObject;
 
     /**
      * @var array
@@ -130,18 +123,6 @@ class ThemeManager
             $this->activeThemeOptions = array();
         }
         return $this->activeThemeOptions;
-    }
-
-    /**
-     * @return null|BaseTheme
-     */
-    public function getActiveThemeObject()
-    {
-        $activeTheme = $this->getActiveTheme();
-        if ($activeTheme !== null) {
-            return $this->activeThemeObject;
-        }
-        return null;
     }
 
     /**
