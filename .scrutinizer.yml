@@ -7,6 +7,7 @@ filter:
 before_commands:
   - "composer install"
   - "php app/console doctrine:database:create --env=test"
+  - "php app/console doctrine:schema:create --env=test"
   - "php app/console simplr:assets:install --env=test"
   - "php app/console assetic:dump"
 
