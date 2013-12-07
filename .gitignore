@@ -4,6 +4,8 @@
 # Simplr ignores
 /composer.lock
 /scrutinizer.phar
+/app/Resources/node_modules/*
+!app/Resources/node_modules/.gitkeep
 /web/assets/themes/*
 !web/assets/themes/.gitkeep
 /web/assets/plugins/*

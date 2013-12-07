@@ -1,0 +1,8 @@
+simplr_backend:
+    resource: "@CleentfaarSimplrCmsBundle/Resources/config/routing_backend.yml"
+    prefix:   /admin
+
+simplr_frontend:
+    resource: "@CleentfaarSimplrCmsBundle/Resources/config/routing_frontend.yml"
+    prefix:   /
+

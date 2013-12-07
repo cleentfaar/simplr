@@ -1,0 +1,77 @@
+{% extends 'knp_menu.html.twig' %}
+{#{% extends 'BraincraftedBootstrapBundle:Menu:menu.html.twig' %}#}
+
+
+{% block root %}
+    {% set listAttributes = item.childrenAttributes %}
+    {% set classes = listAttributes.class|default('')|split(' ') %}
+    {% set classes = classes|merge(['nav','navbar-nav','side-nav']) %}
+    {% set listAttributes = listAttributes|merge({'class':classes|join(' ')}) %}
+    {{ block('list') -}}
+{% endblock %}
+
+{% block compressed_root %}
+    {% import 'knp_menu.html.twig' as knp %}
+    {% spaceless %}
+        {{ block('root') }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block item %}
+    {% import 'knp_menu.html.twig' as knp %}
+    {% if item.displayed %}
+        {# building the class of the item #}
+        {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+        {%- if item.current %}
+            {%- set classes = classes|merge([options.currentClass]) %}
+        {%- elseif matcher.isAncestor(item, options.depth) %}
+            {%- set classes = classes|merge([options.ancestorClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeFirst %}
+            {%- set classes = classes|merge([options.firstClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeLast %}
+            {%- set classes = classes|merge([options.lastClass]) %}
+        {%- endif %}
+        {% if item.hasChildren and item.level is not sameas(0) and item.displayChildren %}
+            {%- set classes = classes|merge(['dropdown']) %}
+        {% endif %}
+        {%- set attributes = item.attributes %}
+        {%- if classes is not empty %}
+            {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+        {%- endif %}
+
+        {# displaying the item #}
+        <li{{ knp.attributes(attributes) }}>
+            {%- if item.uri is not empty and (not item.current or options.currentAsLink) %}
+                {{ block('linkElement') }}
+            {%- else %}
+                {{ block('spanElement') }}
+            {%- endif %}
+            {# render the list of children#}
+            {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+            {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level, 'dropdown-menu']) %}
+            {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+            {{ block('list') }}
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block linkElement %}
+    {% import 'knp_menu.html.twig' as knp %}
+    {%- set linkAttributes = item.linkAttributes %}
+    {%- set classes = linkAttributes.class is defined ? linkAttributes.class|split(' ') : [] %}
+    {%- if item.hasChildren and item.displayChildren %}
+        {%- set linkAttributes = linkAttributes|merge({'data-toggle': 'dropdown'}) %}
+        {%- set classes = classes|merge(['dropdown-toggle']) %}
+    {%- endif %}
+    {%- set linkAttributes = linkAttributes|merge({'class': classes|join(' ')}) %}
+    <a href="{{ item.uri }}"{{ knp.attributes(linkAttributes) }}>{{ block('label') }}</a>
+{% endblock %}
+
+{% block label %}
+    {% import 'knp_menu.html.twig' as macros %}
+    {%- if item.level > 1 %}<i class="fa fa-caret-right"></i> {% elseif item.getExtra('icon') %}<i class="fa fa-{{ item.getExtra('icon') }}"></i> {% endif %}
+    <span>{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|raw }}{% else %}{{ item.label }}{% endif %}</span>
+    {%- if item.hasChildren %}<i class="icon-angle-down angle-down"></i>{% endif %}
+{% endblock %}

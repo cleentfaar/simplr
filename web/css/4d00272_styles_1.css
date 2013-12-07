@@ -1,0 +1,166 @@
+header .navbar {
+  padding: 0 4px 0px 15px;
+}
+.header-button {
+  display: inline-block;
+  margin-left: 30px;
+}
+.alert {
+  margin: 20px 0px 20px 0px;
+}
+.table th {
+  text-align: inherit;
+}
+.indent {
+  margin: 50px;
+}
+.tab-content {
+  background: white;
+  padding: 19px;
+  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+}
+.tab-content .table:last-child {
+  margin-bottom: 0px;
+}
+.nav-tabs {
+  margin-bottom: 0px;
+}
+.btn-link {
+  color: #428BCA;
+}
+.navbar-brand {
+  font-size: 24px;
+}
+.side-nav.navbar-nav > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.side-nav > li.dropdown > ul.dropdown-menu > li > a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.side-nav.navbar-nav li a i {
+  margin-right: 10px;
+}
+.table .actions {
+  font-size: 12px;
+}
+.table .actions .btn {
+  padding: 0px;
+  font-size: 12px;
+}
+.widget .widget-inside p {
+  margin: 0 0 1em;
+  padding: 0;
+}
+.widget-title h4 {
+  margin: 0;
+  padding-bottom: 0.2em;
+  line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.widgets-sortables {
+  min-height: 90px;
+}
+.widget-control-actions {
+  margin-top: 8px;
+}
+.widget-control-actions a {
+  text-decoration: none;
+}
+.widget-control-actions a:hover {
+  text-decoration: underline;
+}
+.widget-control-actions div.alignleft {
+  margin-top: 6px;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 999px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+.form-group input[type=file] {
+  height: 34px;
+  line-height: 34px;
+}
+body.login .login-container:before,
+body.error .error-container:before {
+  top: -9px;
+}
+form .radio,
+form .checkbox {
+  display: inline-block;
+  vertical-align: baseline;
+  margin-right: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#PluginsTable,
+#ThemesTable,
+.box-content {
+  background-color: #FFF;
+}
+#PluginsTable .dependencies {
+  font-size: 10px;
+  color: #666;
+  width: 300px;
+  text-align: right;
+}
+#PluginsTable .dependencies .dependency {
+  color: grey;
+}
+#PluginsTable .dependencies .dependency.active {
+  color: green;
+}
+#PluginsTable .dependencies .dependency.missing {
+  color: red;
+}
+#PluginsTable .dependencies .dependency.outdated,
+#PluginsTable .dependencies .dependency.ahead,
+#PluginsTable .dependencies .dependency.inactive {
+  color: orange;
+}
+#SearchSpinner,
+#SearchResults {
+  display: none;
+}
+#SearchSpinner,
+#SearchResults {
+  margin-top: 30px;
+}
+#SearchSpinner {
+  height: 19px;
+}
+#SearchResults td {
+  vertical-align: middle;
+}
+#SearchResults td span.divider {
+  border-right: 1px solid purple;
+}
+#SearchResults td span.spaced {
+  display: inline-block;
+  width: 150px;
+  margin-right: 50px;
+}
+#UnusedWidgetsContainer .box-toolbox {
+  display: none;
+}
+#AvailableWidgetsContainer {
+  min-height: 400px;
+}

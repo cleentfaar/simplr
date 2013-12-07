@@ -4,18 +4,24 @@
     "type": "project",
     "description": "The Simplr CMS",
     "autoload": {
-        "psr-0": { "": "src/", "Simplr": "app/Resources/" }
+        "psr-0": { "": "src/" }
     },
     "repositories": [
         {
-            "type": "git",
-            "url": "https://github.com/cleentfaar/simplr-core.git"
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.10.2",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.10.2.js",
+                    "type": "file"
+                }
+            }
         }
     ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
-        "cleentfaar/simplr-core": "dev-master",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -23,13 +29,13 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~2.3",
-        "sensio/framework-extra-bundle": "~2.3",
+        "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "cleentfaar/doctrine-table-prefix-bundle": "dev-master",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "liip/functional-test-bundle": "dev-master",
-        "liip/imagine-bundle": "dev-master"
+        "knplabs/knp-menu-bundle": "dev-master",
+        "braincrafted/bootstrap-bundle": "~2.0@alpha",
+        "twbs/bootstrap": "~3.0",
+        "jquery/jquery":  "~1.10"
     },
     "scripts": {
         "post-install-cmd": [
@@ -38,9 +44,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "php app/console doctrine:database:create",
-            "php app/console doctrine:schema:create",
-            "php app/console doctrine:fixtures:load"
+            "npm install --prefix ./app/Resources less",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -48,18 +53,18 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "php app/console doctrine:schema:update --force"
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
         ]
     },
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

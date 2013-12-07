@@ -1,0 +1,27 @@
+parameters:
+    simplr.backend.menu.builder.class: Cleentfaar\Simplr\Bundle\CmsBundle\Menu\Backend\MenuBuilder
+    simplr.backend.menu.item.class: Knp\Menu\MenuItem
+
+services:
+#    simplr.example:
+#        class: %simplr.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    simplr.backend.menu.builder:
+        class: %simplr.backend.menu.builder.class%
+        arguments: ["@knp_menu.factory","@translator","@event_dispatcher"]
+    simplr.backend.menu.top:
+        class: %simplr.backend.menu.item.class% # the service definition requires setting the class
+        factory_service: simplr.backend.menu.builder
+        factory_method: createTopMenu
+        arguments: ["@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: simplr.backend.menu.top } # The alias is what is used to retrieve the menu
+    simplr.backend.menu.sidebar:
+        class: %simplr.backend.menu.item.class% # the service definition requires setting the class
+        factory_service: simplr.backend.menu.builder
+        factory_method: createSidebarMenu
+        arguments: ["@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: simplr.backend.menu.sidebar } # The alias is what is used to retrieve the menu
