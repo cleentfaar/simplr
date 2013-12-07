@@ -19,7 +19,7 @@ class PagesControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/some/page');
+        $crawler = $client->request('GET', '/');
 
         $this->assertTrue($crawler->filter('html:contains("Welcome")')->count() > 0);
     }

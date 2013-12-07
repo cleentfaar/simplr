@@ -11,6 +11,11 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
+doctrine:
+    dbal:
+        driver:   pdo_sqlite
+        path: "%kernel.cache_dir%/simplr_%kernel.environment%.db"
+
 monolog:
     handlers:
         main:
