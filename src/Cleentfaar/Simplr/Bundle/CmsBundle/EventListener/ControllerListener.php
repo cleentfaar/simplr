@@ -2,10 +2,11 @@
 namespace Cleentfaar\Simplr\Bundle\CmsBundle\EventListener;
 
 use Cleentfaar\Simplr\Core\Controller\BaseController;
+use Cleentfaar\Simplr\Core\Controller\BaseInstallController;
 use Cleentfaar\Simplr\Core\Services\PluginManager;
 use Cleentfaar\Simplr\Core\Services\ThemeManager;
+use Cleentfaar\Simplr\Core\Simplr;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 class ControllerListener
@@ -25,9 +26,10 @@ class ControllerListener
      */
     private $pluginManager;
 
-    public function __construct(EventDispatcherInterface $dispatcher, ThemeManager $themeManager, PluginManager $pluginManager)
+    public function __construct(EventDispatcherInterface $dispatcher, Simplr $simplr, ThemeManager $themeManager, PluginManager $pluginManager)
     {
         $this->dispatcher = $dispatcher;
+        $this->simplr = $simplr;
         $this->pluginManager = $pluginManager;
         $this->themeManager = $themeManager;
     }
@@ -45,8 +47,15 @@ class ControllerListener
         }
 
         if ($controller[0] instanceof BaseController) {
-            $this->themeManager->registerActiveTheme($this->dispatcher);
-            $this->pluginManager->registerActivePlugins($this->dispatcher);
+
+            if ($controller[0] instanceof BaseInstallController) {
+                if ($this->simplr->isInstalled() === true) {
+                    throw new \Exception("Simplr is already installed");
+                }
+            } else {
+                $this->themeManager->registerActiveTheme($this->dispatcher);
+                $this->pluginManager->registerActivePlugins($this->dispatcher);
+            }
         }
     }
 }

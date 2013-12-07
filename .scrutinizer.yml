@@ -1,11 +1,13 @@
 filter:
   paths:
-    - 'src/*'
+    - "src/*"
   excluded_paths:
-    - 'src/*/*/Command'
+    - "src/*/*/Command"
 
 before_commands:
-  - 'composer install'
+  - "composer install"
+  - "php app/console doctrine:database:create --env=test"
+  - "php app/console simplr:assets:install --symlink --env=test"
 
 tools:
   php_code_sniffer:
@@ -27,4 +29,4 @@ tools:
   sensiolabs_security_checker:
     enabled: true
   php_code_coverage:
-    test_command: 'phpunit -c app'
+    test_command: "phpunit -c app"

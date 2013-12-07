@@ -54,7 +54,6 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "npm install --prefix ./bin less",
             "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
-            "php app/console simplr:assets:install --symlink",
             "php app/console assetic:dump"
         ],
         "post-update-cmd": [
@@ -63,9 +62,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "php app/console doctrine:schema:update --force",
             "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
-            "php app/console simplr:assets:install --symlink",
             "php app/console assetic:dump"
         ]
     },

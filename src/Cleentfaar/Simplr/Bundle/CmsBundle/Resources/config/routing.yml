@@ -1,3 +1,7 @@
+simplr_install:
+    resource: "@CleentfaarSimplrCmsBundle/Resources/config/routing_install.yml"
+    prefix:   /_install
+
 simplr_backend:
     resource: "@CleentfaarSimplrCmsBundle/Resources/config/routing_backend.yml"
     prefix:   /admin

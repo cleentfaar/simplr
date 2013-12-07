@@ -2,12 +2,15 @@ parameters:
     simplr.backend.menu.builder.class: Cleentfaar\Simplr\Bundle\CmsBundle\Menu\Backend\MenuBuilder
     simplr.twig.cms_extension.class: Cleentfaar\Simplr\Bundle\CmsBundle\Twig\CmsExtension
     simplr.controller_listener.class: Cleentfaar\Simplr\Bundle\CmsBundle\EventListener\ControllerListener
+    simplr.instance.class: Cleentfaar\Simplr\Core\Simplr
     simplr.backend.menu.item.class: Knp\Menu\MenuItem
     simplr.optionmanager.class: Cleentfaar\Simplr\Core\Services\OptionManager
     simplr.pluginmanager.class: Cleentfaar\Simplr\Core\Services\PluginManager
     simplr.thememanager.class: Cleentfaar\Simplr\Core\Services\ThemeManager
 
 services:
+    simplr.instance:
+        class: %simplr.instance.class%
     simplr.optionmanager:
         class: %simplr.optionmanager.class%
         arguments: [@doctrine.orm.entity_manager]
@@ -19,7 +22,7 @@ services:
         arguments: [%pathto_themes%, @simplr.optionmanager]
     simplr.controller_listener:
         class: %simplr.controller_listener.class%
-        arguments: [@event_dispatcher, @simplr.thememanager, @simplr.pluginmanager]
+        arguments: [@event_dispatcher, @simplr.instance, @simplr.thememanager, @simplr.pluginmanager]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
     simplr.backend.menu.builder:
