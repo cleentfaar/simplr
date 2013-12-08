@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -28,9 +28,6 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - CleentfaarSimplrCmsBundle:Frontend/Form:form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
@@ -57,7 +54,7 @@ braincrafted_bootstrap:
     less_filter: less # "less", "lessphp" or "none"
     auto_configure:
         assetic: true
-        twig: false
+        twig: true
         knp_menu: true
         knp_paginator: true
 

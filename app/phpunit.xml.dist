@@ -16,7 +16,7 @@
     <testsuites>
         <testsuite name="Simplr Test Suite">
             <directory>../src/Cleentfaar/Simplr/Core/Tests</directory>
-            <directory>../src/Cleentfaar/Simplr/Bundle/*/Tests</directory>
+            <directory>../src/Cleentfaar/Bundle/*/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -31,9 +31,9 @@
             <directory>../src</directory>
             <exclude>
                 <directory>../src/Cleentfaar/Simplr/Core/Tests</directory>
-                <directory>../src/Cleentfaar/Simplr/Bundle/*/Tests</directory>
-                <directory>../src/Cleentfaar/Simplr/Bundle/*/Command</directory>
-                <directory>../src/Cleentfaar/Simplr/Bundle/*/Resources</directory>
+                <directory>../src/Cleentfaar/Bundle/*/Tests</directory>
+                <directory>../src/Cleentfaar/Bundle/*/Command</directory>
+                <directory>../src/Cleentfaar/Bundle/*/Resources</directory>
             </exclude>
         </whitelist>
     </filter>

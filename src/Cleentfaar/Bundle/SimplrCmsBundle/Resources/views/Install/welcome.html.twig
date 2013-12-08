@@ -1,0 +1,23 @@
+{% extends "CleentfaarSimplrCmsBundle:Install:layout.html.twig" %}
+{% trans_default_domain "installation" %}
+{% block title 'Welcome!' %}
+{% block content %}
+    <!-- Main component for a primary marketing message or call to action -->
+    <h1>{{ 'title.welcome'|trans }} <small>{{ 'slogan.welcome'|trans }}</small></h1>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{{ asset('bundles/cleentfaarsimplrcms/install/img/liftoff_small.png') }}" class="illustration"/>
+            </div>
+            <div class="col-lg-8">
+                <h2>{{ 'subtitle.welcome'|trans }}</h2>
+
+                <p>{{ 'intro.welcome'|trans|raw }}</p>
+
+                <p>
+                    <a class="btn btn-lg btn-primary" href="{{ path('simplr_install_wizard_step1') }}" role="button">{{ 'link.continue'|trans }} &raquo;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

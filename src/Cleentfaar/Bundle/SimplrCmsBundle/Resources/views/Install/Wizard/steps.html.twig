@@ -1,0 +1,20 @@
+{% extends "CleentfaarSimplrCmsBundle:Install:layout.html.twig" %}
+{% trans_default_domain "installation" %}
+{% block title 'Step 1' %}
+{% block content %}
+    <div>
+        Steps:
+        {% include 'CleentfaarSimplrCmsBundle:FormFlow:stepList.html.twig' %}
+    </div>
+    <form method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {% if flow.getCurrentStepNumber() == 1 %}
+            {# Do something specific to this step... #}
+        {% endif %}
+
+        {{ form_rest(form) }}
+
+        {% include 'CleentfaarSimplrCmsBundle:FormFlow:buttons.html.twig' %}
+    </form>
+{% endblock %}

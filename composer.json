@@ -40,7 +40,8 @@
         "knplabs/knp-menu-bundle": "~2.0@alpha",
         "braincrafted/bootstrap-bundle": "~2.0@alpha",
         "twbs/bootstrap": "~3.0",
-        "jquery/jquery":  "~1.10"
+        "jquery/jquery":  "~1.10",
+        "craue/formflow-bundle": "~2.0"
     },
     "require-dev": {
         "liip/functional-test-bundle": "dev-master"

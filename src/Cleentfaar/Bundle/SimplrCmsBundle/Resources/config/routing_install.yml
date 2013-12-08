@@ -1,0 +1,23 @@
+simplr_install_welcome:
+    pattern:  /
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Welcome:index }
+
+simplr_install_check:
+    pattern:  /check
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Check:index }
+
+simplr_install_update:
+    pattern:  /update
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Update:index }
+
+simplr_install_about:
+    pattern:  /about
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/About:index }
+
+simplr_install_wizard_step1:
+    pattern:  /wizard/step1
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Wizard:step1 }
+
+simplr_install_wizard_step2:
+    pattern:  /wizard/step2
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Wizard:step2 }

@@ -1,8 +1,8 @@
 <?php
 namespace Acme\AlphaPlugin;
 
-use Cleentfaar\Simplr\Bundle\CmsBundle\CmsEvents;
-use Cleentfaar\Simplr\Bundle\CmsBundle\Event\GetMenuEvent;
+use Cleentfaar\Simplr\Core\CmsEvents;
+use Cleentfaar\Simplr\Core\Event\GetMenuEvent;
 
 return array(
     'description' => 'This is the alpha theme',
