@@ -1,6 +1,6 @@
 parameters:
     simplr.twig.cms_extension.class: Cleentfaar\Bundle\SimplrCmsBundle\Twig\CmsExtension
-    simplr.backend.menu.builder.class: Cleentfaar\Simplr\Core\Menu\Backend\MenuBuilder
+    simplr.backend.menu.builder.class: Cleentfaar\Simplr\Core\Menu\MenuBuilder
     simplr.exception_listener.class: Cleentfaar\Simplr\Core\EventListener\ExceptionListener
     simplr.controller_listener.class: Cleentfaar\Simplr\Core\EventListener\ControllerListener
     simplr.instance.class: Cleentfaar\Simplr\Core\Simplr

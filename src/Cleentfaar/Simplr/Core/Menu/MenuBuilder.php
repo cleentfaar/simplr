@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Bundle\SimplrCmsBundle\Menu\Backend;
+namespace Cleentfaar\Simplr\Core\Menu;
 
 use Cleentfaar\Simplr\Core\CmsEvents;
 use Cleentfaar\Simplr\Core\Event\GetMenuEvent;
