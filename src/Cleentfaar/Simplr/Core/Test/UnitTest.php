@@ -9,11 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Bundle\SimplrCmsBundle\Test;
+namespace Cleentfaar\Simplr\Core\Test;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-abstract class UnitTest extends WebTestCase
+abstract class UnitTest extends \WebTestCase
 {
 
 }

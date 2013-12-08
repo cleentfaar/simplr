@@ -20,8 +20,11 @@ class DashboardControllerTest extends FunctionalTest
         $this->loadDefaultFixtures();
         $client = static::createClient();
 
+        /**
+         * Should be redirected to installation routine
+         */
+        $client->followRedirects(true);
         $crawler = $client->request('GET', '/admin/dashboard');
-
-        $this->assertTrue($crawler->filter('html:contains("Overview")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Simplr")')->count() > 0);
     }
 }
