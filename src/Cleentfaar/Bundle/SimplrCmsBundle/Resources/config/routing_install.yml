@@ -14,10 +14,6 @@ simplr_install_about:
     pattern:  /about
     defaults: { _controller: CleentfaarSimplrCmsBundle:Install/About:index }
 
-simplr_install_wizard_step1:
-    pattern:  /wizard/step1
-    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Wizard:step1 }
-
-simplr_install_wizard_step2:
-    pattern:  /wizard/step2
-    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Wizard:step2 }
+simplr_install_wizard:
+    pattern:  /wizard
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Wizard:index }

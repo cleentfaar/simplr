@@ -14,6 +14,7 @@ namespace Cleentfaar\Simplr\Core\Form;
 use Craue\FormFlowBundle\Form\FormFlow;
 use Craue\FormFlowBundle\Form\FormFlowInterface;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class InstallCmsFormFlow extends FormFlow
 {
@@ -37,11 +38,11 @@ class InstallCmsFormFlow extends FormFlow
     {
         return array(
             array(
-                'label' => 'step1',
+                'label' => 'form.step.site_settings',
                 'type' => $this->formType,
             ),
             array(
-                'label' => 'step2',
+                'label' => 'form.step.database_configuration',
                 'type' => $this->formType,
                 'skip' => function ($estimatedCurrentStepNumber, FormFlowInterface $flow) {
                         $canSkipStep2 = false;
@@ -50,8 +51,17 @@ class InstallCmsFormFlow extends FormFlow
                     },
             ),
             array(
-                'label' => 'confirmation',
+                'label' => 'form.step.confirmation',
             ),
+        );
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                 'translation_domain' => 'installation'
+            )
         );
     }
 }

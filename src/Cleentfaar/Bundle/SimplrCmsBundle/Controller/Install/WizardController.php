@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormInterface;
 
 class WizardController extends BaseInstallController
 {
-    public function step1Action()
+    public function indexAction()
     {
         $formData = new InstallCmsProcessor($this->container); // Your form data class. Has to be an object, won't work properly with an array.
 
@@ -47,7 +47,7 @@ class WizardController extends BaseInstallController
             }
         }
 
-        return $this->render('@CleentfaarSimplrCms/Install/Wizard/steps.html.twig', array(
+        return $this->render('@CleentfaarSimplrCms/Install/Wizard/index.html.twig', array(
            'form' => $form->createView(),
            'flow' => $flow,
         ));
