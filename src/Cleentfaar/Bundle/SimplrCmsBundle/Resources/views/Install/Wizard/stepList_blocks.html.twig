@@ -1,3 +1,4 @@
+{% trans_default_domain "installation" %}
 {% block craue_flow_stepList_class %}
 	{%- if loop.index == flow.getCurrentStepNumber() -%}
 		{{- ' class="craue_formflow_current_step"' -}}

@@ -2,8 +2,8 @@
 {% trans_default_domain "installation" %}
 {% block content %}
     <div>
-        Steps:
-        {% include 'CleentfaarSimplrCmsBundle:FormFlow:stepList.html.twig' %}
+        {{ 'form.steps'|trans }}:
+        {% include 'CleentfaarSimplrCmsBundle:Install:Wizard/stepList.html.twig' %}
     </div>
     <form method="post" {{ form_enctype(form) }}>
         {{ form_errors(form) }}
@@ -14,6 +14,6 @@
 
         {{ form_rest(form) }}
 
-        {% include 'CleentfaarSimplrCmsBundle:FormFlow:buttons.html.twig' %}
+        {% include 'CleentfaarSimplrCmsBundle:Install:Wizard/buttons.html.twig' %}
     </form>
 {% endblock %}
