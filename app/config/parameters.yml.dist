@@ -15,6 +15,8 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     table_prefix: simplr_
+    scrutinizer_shield_hash_quality: 123abc
+    scrutinizer_shield_hash_coverage: 123abc
     pathto_plugins: '%kernel.root_dir%/Resources/plugins'
     pathto_themes: '%kernel.root_dir%/Resources/themes'
     pathto_uploads: '%kernel.root_dir%/Resources/uploads'
