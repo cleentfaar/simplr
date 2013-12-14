@@ -34,3 +34,14 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+cleentfaar_ci:
+    travis:
+        shields:
+            build: true
+    scrutinizer:
+        shields:
+            quality:
+                hash: %scrutinizer_shield_hash_quality%
+            coverage:
+                hash: %scrutinizer_shield_hash_coverage%

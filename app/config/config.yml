@@ -126,14 +126,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-cleentfaar_ci:
-    travis:
-        shields:
-            build: true
-    scrutinizer:
-        shields:
-            quality:
-                hash: %scrutinizer_shield_hash_quality%
-            coverage:
-                hash: %scrutinizer_shield_hash_coverage%
