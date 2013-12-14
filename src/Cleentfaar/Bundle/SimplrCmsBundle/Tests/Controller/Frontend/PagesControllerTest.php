@@ -25,7 +25,6 @@ class PagesControllerTest extends FunctionalTest
          */
         $client->followRedirects(true);
         $crawler = $client->request('GET', '/');
-
-        $this->assertFalse($crawler->filter('html:contains("Simplr")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Simplr")')->count() > 0);
     }
 }
