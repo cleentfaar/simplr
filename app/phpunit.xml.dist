@@ -29,6 +29,7 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
+                <directory>../src/Cleentfaar/Bundle/*/Test</directory>
                 <directory>../src/Cleentfaar/Bundle/*/Tests</directory>
                 <directory>../src/Cleentfaar/Bundle/*/Command</directory>
                 <directory>../src/Cleentfaar/Bundle/*/Resources</directory>
