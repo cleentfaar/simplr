@@ -108,9 +108,9 @@ class CmsExtension extends \Twig_Extension
             return null;
             //throw new \Exception("Given media argument must be either a media ID or Media entity instance");
         }
+
         return $this->container->get('simplr.mediaurlgenerator')->generateUrl($media, $options);
     }
-
 
     /**
      * @param $name

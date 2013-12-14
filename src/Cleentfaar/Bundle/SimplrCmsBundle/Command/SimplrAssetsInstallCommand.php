@@ -115,8 +115,8 @@ EOT
 
     /**
      * @param $dir
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return bool
      */
     private function installThemeAssets($dir, InputInterface $input, OutputInterface $output)
@@ -163,13 +163,14 @@ EOT
                 );
             }
         }
+
         return true;
     }
 
     /**
      * @param $dir
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return bool
      */
     private function installPluginAssets($dir, InputInterface $input, OutputInterface $output)
@@ -212,6 +213,7 @@ EOT
         } else {
             $output->writeln('Installing assets for plugins... no plugins found!');
         }
+
         return true;
     }
 }

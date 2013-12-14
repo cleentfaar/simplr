@@ -95,8 +95,8 @@ EOT
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface            $input
+     * @param  OutputInterface           $output
      * @return int|null|void
      * @throws \InvalidArgumentException
      */
@@ -143,8 +143,8 @@ EOT
     /**
      * @todo Find out why we need to use NullOutput to prevent output from subcommands,
      *       even though the --quiet argument is passed}</p>
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return bool
      */
     protected function installSimplr(InputInterface $input, OutputInterface $output)
@@ -200,13 +200,14 @@ EOT
         $progress->display();
         $progress->clear();
         $progress->finish();
+
         return $this->handleResult($failed, $failedReasons, $input, $output);
     }
 
     /**
-     * @param bool $failed
-     * @param array $failedReasons
-     * @param OutputInterface $output
+     * @param  bool            $failed
+     * @param  array           $failedReasons
+     * @param  OutputInterface $output
      * @return bool
      */
     protected function handleResult($failed, array $failedReasons, InputInterface $input, OutputInterface $output)
@@ -235,6 +236,7 @@ EOT
                     $this->targetPath
                 )
             );
+
             return 0;
         } else {
             $output->writeln("<error>Simplr failed to be installed!</error>");
@@ -247,6 +249,7 @@ EOT
                     }
                 }
             }
+
             return 1;
         }
     }

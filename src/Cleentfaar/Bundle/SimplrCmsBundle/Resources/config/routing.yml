@@ -9,4 +9,3 @@ simplr_backend:
 simplr_frontend:
     resource: "routing_frontend.yml"
     prefix:   /
-

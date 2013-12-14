@@ -34,7 +34,6 @@ class Configuration implements ConfigurationInterface
         // ...
         $treeBuilder->root('simplr');
 
-
         return $treeBuilder;
     }
 
