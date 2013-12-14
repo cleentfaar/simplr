@@ -7,7 +7,7 @@ php:
 
 before_script:
   - "composer install"
-  - "php app/console simplr:install -n --env=test"
+  - "php app/console simplr:install -n --env=test --ignore-lock"
 
 script:
   - "phpunit -c app"

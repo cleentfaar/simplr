@@ -6,7 +6,7 @@ filter:
 
 before_commands:
   - "composer install"
-  - "php app/console simplr:install -n --env=test"
+  - "php app/console simplr:install -n --env=test --ignore-lock"
 
 
 tools:
