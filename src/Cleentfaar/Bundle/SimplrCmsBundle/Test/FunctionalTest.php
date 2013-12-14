@@ -17,7 +17,7 @@ abstract class FunctionalTest extends WebTestCase
 {
     protected function loadDefaultFixtures()
     {
-        return $this->loadFixtures(array('Cleentfaar\Bundle\SimplrCmsBundle\DataFixtures\ORM\LoadCmsData'));
+        return $this->loadFixtures(array('Cleentfaar\Simplr\Core\DataFixtures\ORM\LoadCmsData'));
     }
 
     protected function fakeInstall()
