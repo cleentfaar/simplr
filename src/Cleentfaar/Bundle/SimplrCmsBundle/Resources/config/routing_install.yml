@@ -1,5 +1,5 @@
 simplr_install_welcome:
-    pattern:  /
+    pattern:  /welcome
     defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Welcome:index }
 
 simplr_install_check:

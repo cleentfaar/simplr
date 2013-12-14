@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Frontend;
+namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Install;
 
 use Cleentfaar\Bundle\SimplrCmsBundle\Test\FunctionalTest;
 
@@ -19,7 +19,7 @@ class WizardControllerTest extends FunctionalTest
     {
         $this->loadDefaultFixtures();
         $client = static::createClient();
-        $client->followRedirects(true);
+        $client->followRedirects(false);
         $crawler = $client->request('GET', '/_install/wizard');
         $this->assertTrue($crawler->filter('html:contains("form.steps")')->count() > 0);
     }

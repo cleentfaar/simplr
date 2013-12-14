@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Frontend;
+namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Install;
 
 use Cleentfaar\Bundle\SimplrCmsBundle\Test\FunctionalTest;
 
@@ -19,8 +19,8 @@ class WelcomeControllerTest extends FunctionalTest
     {
         $this->loadDefaultFixtures();
         $client = static::createClient();
-        $client->followRedirects(true);
-        $crawler = $client->request('GET', '/_install/wizard');
+        $client->followRedirects(false);
+        $crawler = $client->request('GET', '/_install/welcome');
         $this->assertTrue($crawler->filter('html:contains("title.welcome")')->count() > 0);
     }
 }
