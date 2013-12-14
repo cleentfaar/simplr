@@ -12,6 +12,7 @@ parameters:
     mailer_password:   ~
 
     locale:            en
+    fallback_locale:   en
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     table_prefix: simplr_

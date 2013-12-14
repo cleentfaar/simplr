@@ -1,4 +1,7 @@
 parameters:
+    simplr.command.install_command.class: Cleentfaar\Simplr\Core\Command\SimplrInstallCommand
+    simplr.command.assets_install_command.class: Cleentfaar\Simplr\Core\Command\SimplrAssetsInstallCommand
+    simplr.command.diagnose_command.class: Cleentfaar\Simplr\Core\Command\SimplrDiagnoseCommand
     simplr.twig.cms_extension.class: Cleentfaar\Bundle\SimplrCmsBundle\Twig\CmsExtension
     simplr.backend.menu.builder.class: Cleentfaar\Simplr\Core\Menu\MenuBuilder
     simplr.exception_listener.class: Cleentfaar\Simplr\Core\EventListener\ExceptionListener
@@ -17,6 +20,18 @@ services:
     simplr.instance:
         class: %simplr.instance.class%
         arguments: [%kernel.root_dir%, @service_container]
+    simplr.command.install_command:
+        class: %simplr.command.install_command.class%
+        tags:
+            -  { name: console.command }
+    simplr.command.assets_install_command:
+        class: %simplr.command.assets_install_command.class%
+        tags:
+            -  { name: console.command }
+    simplr.command.diagnose_command:
+        class: %simplr.command.diagnose_command.class%
+        tags:
+            -  { name: console.command }
     simplr.doctor:
         class: %simplr.doctor.class%
         arguments: [@service_container]
