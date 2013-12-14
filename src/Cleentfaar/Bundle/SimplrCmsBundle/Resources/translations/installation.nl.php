@@ -25,6 +25,7 @@ return array(
     'form.choice.database_driver.mysql' =>  'MySQL',
     'form.choice.database_driver.sqlite'=>  'SQLite',
     'form.button.back'                  =>  'Terug',
+    'form.button.next'                  =>  'Volgende',
     'form.button.finish'                =>  'Voltooien',
     'form.button.reset'                 =>  'Herstellen',
     'form.steps'                        =>  'Stappen',

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Backend;
+namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Frontend;
 
 use Cleentfaar\Bundle\SimplrCmsBundle\Test\FunctionalTest;
 
-class DashboardControllerTest extends FunctionalTest
+class WizardControllerTest extends FunctionalTest
 {
     public function testIndex()
     {
@@ -24,7 +24,7 @@ class DashboardControllerTest extends FunctionalTest
          * Should be redirected to installation routine
          */
         $client->followRedirects(true);
-        $crawler = $client->request('GET', '/admin/dashboard');
-        $this->assertTrue($crawler->filter('html:contains("title.welcome")')->count() > 0);
+        $crawler = $client->request('GET', '/_install/wizard');
+        $this->assertTrue($crawler->filter('html:contains("form.steps")')->count() > 0);
     }
 }
