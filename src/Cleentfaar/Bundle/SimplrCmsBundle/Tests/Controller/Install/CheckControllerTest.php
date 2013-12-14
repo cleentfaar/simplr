@@ -13,7 +13,7 @@ namespace Cleentfaar\Bundle\SimplrCmsBundle\Tests\Controller\Frontend;
 
 use Cleentfaar\Bundle\SimplrCmsBundle\Test\FunctionalTest;
 
-class WizardControllerTest extends FunctionalTest
+class CheckControllerTest extends FunctionalTest
 {
     public function testIndex()
     {
@@ -21,6 +21,6 @@ class WizardControllerTest extends FunctionalTest
         $client = static::createClient();
         $client->followRedirects(true);
         $crawler = $client->request('GET', '/_install/wizard');
-        $this->assertTrue($crawler->filter('html:contains("form.steps")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("title.check")')->count() > 0);
     }
 }

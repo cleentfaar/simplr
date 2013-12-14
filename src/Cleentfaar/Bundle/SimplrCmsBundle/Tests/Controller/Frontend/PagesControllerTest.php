@@ -24,7 +24,14 @@ class PagesControllerTest extends FunctionalTest
          * Should be redirected to installation routine
          */
         $client->followRedirects(true);
-        $crawler = $client->request('GET', '/');
-        $this->assertTrue($crawler->filter('html:contains("title.welcome")')->count() > 0);
+        $crawler = $client->request('GET', '/any/page/uri');
+        $route = $client->getRequest()->attributes->get('_route');
+        $this->assertEquals($route, 'simplr_install_welcome');
+
+        $this->fakeInstall();
+
+        /**
+         * @todo Write tests that would be valid when the system is installed and configured
+         */
     }
 }

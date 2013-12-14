@@ -25,6 +25,15 @@ class DashboardControllerTest extends FunctionalTest
          */
         $client->followRedirects(true);
         $crawler = $client->request('GET', '/admin/dashboard');
-        $this->assertTrue($crawler->filter('html:contains("title.welcome")')->count() > 0);
+        $route = $client->getRequest()->attributes->get('_route');
+        $this->assertEquals($route, 'simplr_install_welcome');
+
+        $this->fakeInstall();
+
+        /**
+         * @todo Write tests that would be valid when the system is installed and configured
+         */
+
+
     }
 }

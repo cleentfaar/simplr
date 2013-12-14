@@ -19,4 +19,11 @@ abstract class FunctionalTest extends WebTestCase
     {
         return $this->loadFixtures(array('Cleentfaar\Bundle\SimplrCmsBundle\DataFixtures\ORM\LoadCmsData'));
     }
+
+    protected function fakeInstall()
+    {
+        /**
+         * @todo Apply the necessary changes to have the system behave as being installed (and configured)
+         */
+    }
 }
