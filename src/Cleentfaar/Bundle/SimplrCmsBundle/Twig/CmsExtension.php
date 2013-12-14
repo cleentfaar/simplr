@@ -25,6 +25,7 @@ class CmsExtension extends \Twig_Extension
     {
         $this->container = $container;
         $this->loader = $loader;
+        $this->loader->addPath(__DIR__ . '/../Resources/views', 'Simplr');
         $activeThemeViewPath = $this->container->get('simplr.thememanager')->getActiveThemeViewsPath();
         if ($activeThemeViewPath !== null && is_dir($activeThemeViewPath)) {
             $this->loader->addPath($activeThemeViewPath, 'current_theme');

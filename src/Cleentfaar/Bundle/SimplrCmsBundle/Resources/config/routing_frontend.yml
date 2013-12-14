@@ -1,0 +1,5 @@
+simplr_frontend_pages:
+    pattern:  /{slug}
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Backend/Dashboard:index, slug: '/' }
+    requirements:
+        slug: ".+"

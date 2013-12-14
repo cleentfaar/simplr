@@ -80,7 +80,7 @@ doctrine:
                     Simplr:
                         type: annotation
                         is_bundle: false
-                        dir: %kernel.root_dir%/../src/Cleentfaar/Simplr/Core/Entity
+                        dir: %kernel.root_dir%/../vendor/cleentfaar/simplr-core/src/Cleentfaar/Simplr/Core/Entity
                         prefix: Cleentfaar\Simplr\Core\Entity
                         alias: Simplr
                     gedmo_translatable:

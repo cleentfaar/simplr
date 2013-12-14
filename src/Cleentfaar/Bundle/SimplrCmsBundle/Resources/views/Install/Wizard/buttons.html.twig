@@ -1,0 +1,22 @@
+{% set renderBackButton = flow.getCurrentStepNumber() in (flow.getFirstStepNumber() + 1) .. flow.getLastStepNumber() %}
+{% trans_default_domain "installation" %}
+<div class="craue_formflow_buttons craue_formflow_button_count_{% if renderBackButton %}3{% else %}2{% endif %}">
+    {#
+        Default button (the one trigged by pressing the enter/return key) must be defined first.
+        Thus, all buttons are defined in reverse order and will be reversed again via CSS.
+        See http://stackoverflow.com/questions/1963245/multiple-submit-buttons-specifying-default-button
+    #}
+    {%- if flow.getCurrentStepNumber() < flow.getLastStepNumber() -%}
+    {% set label = 'form.button.next'|trans -%}
+    {%- else -%}
+    {% set label = 'form.button.finish'|trans -%}
+    {%- endif -%}
+    {{ form_widget(form.button_submit, {'attr': {'class': 'craue_formflow_button_last'}, 'label': label}) }}
+    &nbsp;
+    {% if renderBackButton %}
+        {{ form_widget(form.button_back, {'label': 'form.button.back'|trans, 'attr': {'name': flow.getFormTransitionKey(), 'type': 'submit', 'value': 'back', 'formnovalidate': 'formnovalidate'}}) }}
+        &nbsp;
+    {% endif %}
+
+    {{ form_widget(form.button_reset, {'label': 'form.button.finish'|trans, 'attr': {'type': 'submit', 'class': 'craue_formflow_button_first', 'value': 'reset', 'formnovalidate': 'formnovalidate'}}) }}
+</div>

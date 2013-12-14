@@ -1,0 +1,12 @@
+simplr_install:
+    resource: "routing_install.yml"
+    prefix:   /_install
+
+simplr_backend:
+    resource: "routing_backend.yml"
+    prefix:   /admin
+
+simplr_frontend:
+    resource: "routing_frontend.yml"
+    prefix:   /
+

@@ -1,0 +1,43 @@
+body {
+  padding-top: 90px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+* {
+  font-family: 'ubunturegular';
+}
+h1 {
+  font-size: 50px;
+  margin-bottom: 40px;
+}
+.navbar {
+  background-image: -webkit-linear-gradient(top, #ffffff 0%, #fafafa 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fffafafa', GradientType=0);
+}
+.navbar .glyphicon {
+  top: 2px;
+  margin-right: 5px;
+}
+.welcome-box {
+  font-size: 18px;
+  background-color: transparent;
+  padding: 20px;
+  /**
+  border: 1px solid #AAA;
+  .vertical-gradient(#FFF, #FAFAFA);
+  */
+}
+.welcome-box img.illustration {
+  margin-top: 20px;
+}
+.welcome-box h2 {
+  margin-bottom: 40px;
+}
+.welcome-box p {
+  color: #999;
+}

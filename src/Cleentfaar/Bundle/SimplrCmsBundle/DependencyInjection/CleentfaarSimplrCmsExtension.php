@@ -11,7 +11,6 @@
 
 namespace Cleentfaar\Bundle\SimplrCmsBundle\DependencyInjection;
 
-use Cleentfaar\Simplr\Core\DependencyInjection\Configuration;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
