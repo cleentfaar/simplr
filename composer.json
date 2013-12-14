@@ -26,6 +26,7 @@
         "doctrine/doctrine-bundle": "~1.2",
         "cleentfaar/doctrine-table-prefix-bundle": "dev-master",
         "cleentfaar/ci-bundle": "dev-master",
+        "cleentfaar/simplr-core": "dev-master",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "twig/extensions": "~1.0",
