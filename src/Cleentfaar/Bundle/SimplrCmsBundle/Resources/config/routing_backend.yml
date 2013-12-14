@@ -1,3 +1,0 @@
-simplr_backend_dashboard:
-    pattern:  /dashboard
-    defaults: { _controller: CleentfaarSimplrCmsBundle:Backend/Dashboard:index }

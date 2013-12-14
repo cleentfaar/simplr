@@ -27,6 +27,7 @@
 !/web/js/.gitkeep
 /web/fonts/*
 !/web/fonts/.gitkeep
+/src/Cleentfaar/Simplr/*
 
 # Symfony ignores
 /web/bundles/

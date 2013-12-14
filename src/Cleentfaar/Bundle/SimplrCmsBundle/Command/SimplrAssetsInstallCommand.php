@@ -11,7 +11,8 @@
 
 namespace Cleentfaar\Bundle\SimplrCmsBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\AssetsInstallCommand as BaseAssetsInstallCommand;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
-class SimplrAssetsInstallCommand extends BaseAssetsInstallCommand
+class SimplrAssetsInstallCommand extends ContainerAwareCommand
 {
 
     /**

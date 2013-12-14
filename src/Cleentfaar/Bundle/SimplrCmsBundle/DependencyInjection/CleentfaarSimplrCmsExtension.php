@@ -32,6 +32,6 @@ class CleentfaarSimplrCmsExtension extends Extension
         $configuration = new Configuration();
         //$config = $this->processConfiguration($configuration, $configs);
         $this->processConfiguration($configuration, $configs);
-        $configuration->loadServices($container, __DIR__.'/../Resources/config');
+        $configuration->loadServices($container);
     }
 }

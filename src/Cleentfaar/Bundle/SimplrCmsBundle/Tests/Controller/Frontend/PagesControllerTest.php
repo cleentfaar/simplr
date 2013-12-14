@@ -26,11 +26,6 @@ class PagesControllerTest extends FunctionalTest
         $client->followRedirects(true);
         $crawler = $client->request('GET', '/');
 
-        /**
-         * Something seems to be going wrong during Travis' tests only...
-         */
-        print_r($client->getResponse()->getContent());
-
         $this->assertFalse($crawler->filter('html:contains("Simplr")')->count() > 0);
     }
 }
