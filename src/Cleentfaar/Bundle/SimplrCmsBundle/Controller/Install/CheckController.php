@@ -17,6 +17,6 @@ class CheckController extends BaseInstallController
 {
     public function indexAction()
     {
-        return $this->render('CleentfaarSimplrCmsBundle:Install:check.html.twig');
+        return $this->render('@Simplr/Install/check.html.twig');
     }
 }

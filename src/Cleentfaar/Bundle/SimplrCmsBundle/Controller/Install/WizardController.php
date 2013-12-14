@@ -47,7 +47,7 @@ class WizardController extends BaseInstallController
             }
         }
 
-        return $this->render('@CleentfaarSimplrCms/Install/Wizard/index.html.twig', array(
+        return $this->render('@Simplr/Install/Wizard/index.html.twig', array(
            'form' => $form->createView(),
            'flow' => $flow,
         ));
