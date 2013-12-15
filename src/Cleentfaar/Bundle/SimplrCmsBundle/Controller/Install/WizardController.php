@@ -39,7 +39,7 @@ class WizardController extends BaseInstallController
                 // flow finished
                 $installSuccessful = $formData->install();
                 if ($installSuccessful === true) {
-                    return $this->redirect($this->generateUrl('simplr_install_successful')); // redirect when done
+                    return $this->redirect($this->generateUrl('simplr_install_success')); // redirect when done
                 }
                 foreach ($formData->getFailedReasons() as $reason) {
                     $form->addError(new FormError($reason));

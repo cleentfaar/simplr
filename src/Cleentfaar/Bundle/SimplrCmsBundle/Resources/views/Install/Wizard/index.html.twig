@@ -1,19 +1,70 @@
 {% extends "@Simplr/Install/layout.html.twig" %}
 {% trans_default_domain "installation" %}
+
+{% form_theme form '@Simplr/Install/Form/form_div.html.twig' %}
+
+{% block title 'title.wizard'|trans %}
 {% block content %}
-    <div>
-        {{ 'form.steps'|trans }}:
-        {% include 'CleentfaarSimplrCmsBundle:Install:Wizard/stepList.html.twig' %}
+    <div class="box">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>{{ 'title.wizard'|trans }} <br/><small>{{ 'slogan.wizard'|trans }}</small></h1>
+                <p>{{ 'intro.wizard'|trans|raw }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 hidden-phone hidden-tablet">
+                <div class="row">
+                    <div class="col-lg-12 hidden-phone hidden-tablet col-lg-12 text-center">
+                        <img src="{{ asset('bundles/cleentfaarsimplrcms/install/img/paper-plane-wizard.png') }}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12 col-sm-12">
+                <div>
+                    {% include 'CleentfaarSimplrCmsBundle:Install:Wizard/stepList.html.twig' %}
+                </div>
+                <form method="post" {{ form_enctype(form) }}>
+                    {{ form_errors(form) }}
+
+                    {% if flow.getCurrentStepNumber() == 1 %}
+                        {# Do something specific to this step... #}
+                    {% endif %}
+                    {% if flow.getCurrentStepNumber() == flow.getLastStepNumber() %}
+                        {# Do something specific to last step... #}
+                        <p>{{ 'form.step_description.confirm'|trans|raw }}</p>
+                    {% endif %}
+
+                    {{ form_rest(form) }}
+
+                    {% include 'CleentfaarSimplrCmsBundle:Install:Wizard/buttons.html.twig' %}
+                </form>
+            </div>
+        </div>
     </div>
-    <form method="post" {{ form_enctype(form) }}>
-        {{ form_errors(form) }}
+{% endblock %}
 
-        {% if flow.getCurrentStepNumber() == 1 %}
-            {# Do something specific to this step... #}
-        {% endif %}
-
-        {{ form_rest(form) }}
-
-        {% include 'CleentfaarSimplrCmsBundle:Install:Wizard/buttons.html.twig' %}
-    </form>
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/cleentfaarsimplrcms/install/js/plugins/qtip/jquery.qtip.min.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/cleentfaarsimplrcms/install/js/plugins/qtip/jquery.qtip.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.help-icon').each(function() { // Notice the .each() loop, discussed below
+                $(this).qtip({
+                    content: {
+                        text: $(this).next('div') // Use the "div" element next to this for the content
+                    },
+                    suppress: false,
+                    show: {
+                        event: 'click'
+                    },
+                    style: { classes: 'qtip-bootstrap' }
+                });
+            });
+        });
+    </script>
 {% endblock %}

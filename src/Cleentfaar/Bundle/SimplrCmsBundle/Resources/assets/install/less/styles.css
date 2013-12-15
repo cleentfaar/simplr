@@ -23,7 +23,7 @@ h1 {
   top: 2px;
   margin-right: 5px;
 }
-.welcome-box {
+.box {
   font-size: 18px;
   background-color: transparent;
   padding: 20px;
@@ -32,12 +32,32 @@ h1 {
   .vertical-gradient(#FFF, #FAFAFA);
   */
 }
-.welcome-box img.illustration {
+.box img.illustration {
   margin-top: 20px;
 }
-.welcome-box h2 {
+.box h2 {
   margin-bottom: 40px;
 }
-.welcome-box p {
+.box p {
   color: #999;
+}
+.help-icon {
+  cursor: pointer;
+}
+.help-block {
+  font-size: 14px;
+  color: #aaaaaa;
+}
+.qtip-bootstrap {
+  padding: 0px;
+}
+.help-icon-text {
+  display: none;
+  padding: 0px;
+}
+.help-icon-text p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 12px;
+  line-height: 1;
 }

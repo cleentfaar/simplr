@@ -9,34 +9,37 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ asset('ico/favicon.ico') }}">
 
-    <title>{{ 'title'|trans }}</title>
+    <title>Simplr - {% block title %}{{ 'title'|trans }}{% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 
-    {% stylesheets filter="cssrewrite" output="css/simplr/styles.min.css"
-    '@CleentfaarSimplrCmsBundle/Resources/assets/install/less/styles.less'
-    %}
-    <link href="{{ asset_url }}" rel="stylesheet">
-    {% endstylesheets %}
-    {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
-    <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-    <style>
-        {% stylesheets filter="cssrewrite" output="css/font-awesome.min.css"
-            '@CleentfaarSimplrCmsBundle/Resources/assets/backend/css/font-awesome.css'
+        {% stylesheets filter="cssrewrite" output="assets/css/simplr/install/styles.min.css"
+        '@CleentfaarSimplrCmsBundle/Resources/assets/install/less/styles.less'
         %}
-        @import url({{ asset_url|raw }});
+        <link href="{{ asset_url }}" rel="stylesheet">
         {% endstylesheets %}
-        {% stylesheets filter="cssrewrite" output="css/fonts.min.css"
-            '@CleentfaarSimplrCmsBundle/Resources/assets/backend/less/fonts.less'
-        %}
-        @import url({{ asset_url|raw }});
+        {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
+        <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-    </style>
+        <style>
+            {% stylesheets filter="cssrewrite" output="assets/css/simplr/install/font-awesome.min.css"
+                '@CleentfaarSimplrCmsBundle/Resources/assets/backend/css/font-awesome.css'
+            %}
+            @import url({{ asset_url|raw }});
+            {% endstylesheets %}
+            {% stylesheets filter="cssrewrite" output="assets/css/fonts.min.css"
+                '@CleentfaarSimplrCmsBundle/Resources/assets/backend/less/fonts.less'
+            %}
+            @import url({{ asset_url|raw }});
+            {% endstylesheets %}
+        </style>
+    {% endblock %}
 
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
 </head>
 
 <body>
@@ -50,11 +53,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{ 'title'|trans }}</a>
+            <a class="navbar-brand" href="#">Simplr {{ 'title'|trans }}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ path('simplr_install_welcome') }}">{{ 'link.welcome'|trans }}</a></li>
+                <li><a href="{{ path('simplr_install_welcome') }}">{{ 'link.welcome'|trans }}</a></li>
                 <li><a href="{{ path('simplr_install_wizard') }}">{{ 'link.wizard'|trans }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -78,10 +81,10 @@
 
 </div> <!-- /container -->
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{ asset('js/bootstrap.js') }}"></script>
+{% block javascripts %}
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+{% endblock %}
 </body>
 </html>

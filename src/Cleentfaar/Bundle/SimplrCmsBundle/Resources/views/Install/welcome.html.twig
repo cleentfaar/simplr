@@ -3,15 +3,19 @@
 {% block title 'Welcome!' %}
 {% block content %}
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="welcome-box">
+    <div class="box">
         <div class="row">
             <div class="col-lg-12">
-                <h1>{{ 'title.welcome'|trans }} <small>{{ 'slogan.welcome'|trans }}</small></h1>
+                <h1>{{ 'title.welcome'|trans }} <br/><small>{{ 'slogan.welcome'|trans }}</small></h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 hidden-phone hidden-tablet">
-                <img src="{{ asset('bundles/cleentfaarsimplrcms/install/img/liftoff_small.png') }}" class="illustration"/>
+            <div class="col-md-4 hidden-phone hidden-tablet text-center">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <img src="{{ asset('bundles/cleentfaarsimplrcms/install/img/paper-plane-welcome.png') }}" class="illustration"/>
+                    </div>
+                </div>
             </div>
             <div class="col-md-8 col-xs-12 col-sm-12">
                 <h2>{{ 'subtitle.welcome'|trans }}</h2>
@@ -19,7 +23,7 @@
                 <p>{{ 'intro.welcome'|trans|raw }}</p>
 
                 <p>
-                    <a class="btn btn-lg btn-primary" href="{{ path('simplr_install_wizard') }}" role="button">{{ 'link.continue'|trans }} &raquo;</a>
+                    <a class="btn btn-lg btn-primary" href="{{ path('simplr_install_wizard') }}" role="button">{{ 'link.install'|trans }} &raquo;</a>
                 </p>
             </div>
         </div>

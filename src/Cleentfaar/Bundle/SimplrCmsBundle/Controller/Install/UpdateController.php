@@ -13,14 +13,15 @@ namespace Cleentfaar\Bundle\SimplrCmsBundle\Controller\Install;
 
 use Cleentfaar\Simplr\Core\Controller\BaseInstallController;
 
-class CheckController extends BaseInstallController
+class UpdateController extends BaseInstallController
 {
     public function indexAction()
     {
-        return $this->render('@Simplr/Install/Check/index.html.twig');
+        return $this->render('@Simplr/Install/Update/index.html.twig');
     }
+
     public function runAction()
     {
-        return $this->render('@Simplr/Install/Check/run.html.twig');
+        return $this->render('@Simplr/Install/Update/run.html.twig');
     }
 }

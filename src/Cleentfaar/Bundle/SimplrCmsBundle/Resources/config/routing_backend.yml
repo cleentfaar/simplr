@@ -1,3 +1,7 @@
+simplr_backend_login:
+    pattern:  /login
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Backend/Login:index }
+
 simplr_backend_dashboard:
     pattern:  /dashboard
     defaults: { _controller: CleentfaarSimplrCmsBundle:Backend/Dashboard:index }

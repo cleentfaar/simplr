@@ -6,9 +6,17 @@ simplr_install_check:
     pattern:  /check
     defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Check:index }
 
+simplr_install_check_run:
+    pattern:  /check/run
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Check:run }
+
 simplr_install_update:
     pattern:  /update
     defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Update:index }
+
+simplr_install_update_run:
+    pattern:  /update/run
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Update:run }
 
 simplr_install_about:
     pattern:  /about
@@ -17,3 +25,7 @@ simplr_install_about:
 simplr_install_wizard:
     pattern:  /wizard
     defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Wizard:index }
+
+simplr_install_success:
+    pattern:  /success
+    defaults: { _controller: CleentfaarSimplrCmsBundle:Install/Success:index }
